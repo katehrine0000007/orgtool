@@ -67,3 +67,7 @@ class Hookable():
 
             for hook in self.items.get(category):
                 self.run(hook, *args, **kwargs)
+
+        # TODO
+        def await_trigger(self, category: str, *args, **kwargs) -> None:
+            self.trigger(category, *args, **kwargs)

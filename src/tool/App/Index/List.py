@@ -50,3 +50,23 @@ class List(Object):
                 continue
 
             yield plugin.relative_to(path)
+
+    def getListBySelfName(self, class_name = None) -> list[LoadedObject]:
+        output = []
+        for item_name, item in self.items.items():
+            if class_name != None:
+                if class_name != item.self_name:
+                    continue
+
+            output.append(item)
+
+        return output
+
+    def getByName(self, key: str, class_name = None) -> LoadedObject:
+        _item = self.items.get(key)
+
+        if class_name != None:
+            if class_name != _item.self_name:
+                return None
+
+        return _item

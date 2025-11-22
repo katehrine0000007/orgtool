@@ -11,6 +11,17 @@ class LoadedObject(Object):
     category: list[str] = None
     module: Any = None
 
+    @property
+    def name(self) -> str:
+        '''
+        Workaround to get DictList working
+        '''
+
+        if self.module == None:
+            return '_____' + self.title
+
+        return self.module.meta.class_name_str
+
     @staticmethod
     def from_path(path: Path):
         plugin = LoadedObject()

@@ -33,7 +33,7 @@ class BaseModel(PydanticBaseModel):
     class Meta(Outer):
         @classproperty
         def mro(cls) -> list:
-            return cls.__mro__
+            return cls.outer.__mro__
 
         @classmethod
         def available_at(cls):
@@ -52,12 +52,16 @@ class BaseModel(PydanticBaseModel):
             return getattr(cls, "hidden", False) == True
 
         @classmethod
-        def is_required_modules_installed(cls) -> list:
+        def can_be_executed(cls):
+            return cls.is_abstract() == False and cls.is_hidden() == False # and cls.outer hasclass Execute
+
+        @classmethod
+        def get_not_installed_required_modules(cls) -> list:
             all_installed = {dist.metadata["Name"].lower() for dist in distributions()}
             satisf_libs = []
             not_libs = []
 
-            for required_module in cls.getRequiredModules():
+            for required_module in cls.required_modules:
                 module_versions = required_module.split("==")
                 module_name = module_versions[0]
 
@@ -67,6 +71,10 @@ class BaseModel(PydanticBaseModel):
                     not_libs.append(module_name)
 
             return not_libs
+
+        @classmethod
+        def is_required_modules_installed(cls) -> bool:
+            return len(cls.get_not_installed_required_modules()) > 0
 
         @classproperty
         def main_module(cls):
@@ -94,10 +102,14 @@ class BaseModel(PydanticBaseModel):
             _class = self.outer.__mro__[0]
             _module = _class.__module__
             _parts = _module.split('.')
-            _parts = _parts[1:] # cut off "Plugins."
+            #_parts = _parts[1:]
 
             return _parts
 
         @property
         def class_module(cls) -> str:
             return cls.outer.__module__
+
+        @classmethod
+        def can_be_used_at(cls, at):
+            return at in cls.available

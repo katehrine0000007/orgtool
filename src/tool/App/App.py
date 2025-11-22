@@ -2,6 +2,7 @@ from App.Objects.Object import Object
 from App.Objects.Section import Section
 from pathlib import Path
 from typing import Any
+from .Index.List import List as ObjectsList
 import asyncio
 import sys
 import os
@@ -11,7 +12,7 @@ class App(Object):
     cwd: str = None
     src: str = None
     loop: Any = None
-    objects: list = None
+    objects: ObjectsList = None
 
     def _constructor(self):
         self.argv = self._parse_argv()
@@ -40,7 +41,5 @@ class App(Object):
         return parsed_args
 
     def load_plugins(self, search_dir: Path):
-        from .Index.List import List as ObjectsList
-
         self.objects = ObjectsList()
         self.objects.load(search_dir)

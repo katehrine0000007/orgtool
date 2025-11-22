@@ -1,3 +1,6 @@
 - [x] Object
 - [x] App
 - [x] Objects list
+- [x] Views
+- [ ] Arguments
+- [ ] ArgumentsDict
