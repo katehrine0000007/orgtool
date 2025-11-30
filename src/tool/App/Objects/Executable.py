@@ -2,6 +2,7 @@ from .Object import Object
 from App.Arguments.ArgumentsDict import ArgumentsDict
 from App.Responses.Response import Response
 from App.Objects.Variableable import Variableable
+from typing import ClassVar
 
 class Executable(Variableable, Object):
     '''
@@ -10,6 +11,8 @@ class Executable(Variableable, Object):
     getArguments(): validation
     '''
 
+    self_name: ClassVar[str] = 'Executable'
+
     class _Hooks(Object._Hooks):
         @property
         def events(self) -> list:
@@ -17,6 +20,9 @@ class Executable(Variableable, Object):
 
     @classmethod
     def getArguments(cls) -> ArgumentsDict:
+        '''
+        Arguments for validation
+        '''
         return ArgumentsDict(items = {})
 
     def getRecursiveArguments(self) -> ArgumentsDict:
@@ -45,6 +51,9 @@ class Executable(Variableable, Object):
         pass
 
     async def implementation_wrap(self, i: ArgumentsDict) -> Response:
+        '''
+        Wrap that can be overriden
+        '''
         return await self.implementation(i)
 
     async def execute(self, 
@@ -66,6 +75,8 @@ class Executable(Variableable, Object):
         await self.hooks.await_trigger('before_execute', i = passing)
 
         response = await self.implementation_wrap(i = passing)
+
+        # assert response != None, 'implementation() returned nothing'
 
         await self.hooks.await_trigger('after_execute', i = passing)
 

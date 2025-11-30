@@ -1,4 +1,5 @@
 from App.Objects.Object import Object
+from App.Responses.Responses import Responses
 
 class Queue(Object):
     '''
@@ -20,8 +21,13 @@ class Queue(Object):
     def convertArguments(self):
         pass
 
-    def getOutput(self):
-        pass
+    def getOutput(self) -> Responses:
+        items = Responses()
+
+        for out_class in self.output:
+            items.append(out_class.apply(self.prestart, self.items))
+
+        return items
 
     async def run(self, prestart: list, items: list):
         for item in prestart:

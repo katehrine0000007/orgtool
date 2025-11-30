@@ -60,7 +60,7 @@ class Argument(Object):
             self.autoApply()
 
     def autoApply(self):
-        self.current = self.getValue()
+        self.current = self.getValue(None)
 
     @property
     def not_passed_message(self):

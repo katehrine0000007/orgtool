@@ -36,3 +36,6 @@ class Section:
 
         kwargs["kind"] = LogKindEnum.success.value
         return self.log(*args, **kwargs)
+
+    def fatal(self, exception):
+        pass

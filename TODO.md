@@ -4,11 +4,12 @@
 - [x] Views
 - [x] Arguments
 - [x] ArgumentsDict
-- [ ] hooks need to be refactored (невозможно дебажить)
+- [ ] hooks need to be refactored (its impossible to debug this)
 - [ ] submodules
 - [ ] switchextractor
 - [ ] db flushing
-- [ ] queue
+- [x] queue
 - [ ] storage
 - [ ] storageunit
 - [ ] config
+- [ ] queue keys with replace

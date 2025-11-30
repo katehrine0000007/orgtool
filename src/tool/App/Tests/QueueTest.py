@@ -28,14 +28,20 @@ class QueueTest(Test):
             {
                 "predicate": "App.Operations.Equate.Equate",
                 "arguments": {
-                    "link": {
+                    "equate_this": {
                         "direct_value": "$0"
                     },
                     "to": {
-                        "direct_value": "#0.data.0.content.number"
+                        "direct_value": "#0.models.0.number"
                     }
                 }
-            }]'''
+            }]''',
+            'output': '''
+            [{
+                "key": "#0",
+                "response": "App.Responses.AnyResponse.AnyResponse"
+            }]
+            '''
         })
         '''
                     {

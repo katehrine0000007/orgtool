@@ -4,7 +4,9 @@ from App.Arguments.Objects.List import List
 from App.Arguments.Objects.Orig import Orig
 from App.Data.DictList import DictList
 from .Item import Item
+from .OutputItem import OutputItem
 from .Queue import Queue
+from App.Responses.Response import Response
 
 class Run(Act):
     '''
@@ -32,7 +34,7 @@ class Run(Act):
                 name = 'output',
                 orig = Orig(
                     name = 'output_item',
-                    orig = Item
+                    orig = OutputItem
                 )
             )
         ])

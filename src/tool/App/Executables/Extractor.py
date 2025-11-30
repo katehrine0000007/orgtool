@@ -25,6 +25,9 @@ class Extractor(Executable):
         ]
 
     def append(self, out: Object):
+        '''
+        Append to response
+        '''
         self.variables.get("items").append(out)
 
     async def implementation(self, i = {}) -> None:
@@ -33,4 +36,4 @@ class Extractor(Executable):
     async def implementation_wrap(self, i = {}) -> ModelsResponse:
         await self.implementation(i)
 
-        return ModelsResponse(data = self.variables.get("items").current)
+        return ModelsResponse(models = self.variables.get("items").current)

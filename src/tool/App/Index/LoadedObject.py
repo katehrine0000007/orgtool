@@ -43,7 +43,7 @@ class LoadedObject(Object):
 
     def succeed_load(self):
         self.is_success = True
-        self.log(f"Loaded object {self.module.meta.class_name_joined}")
+        self.log(f"Loaded {self.module.self_name.lower()} {self.module.meta.class_name_joined}")
 
     def failed_load(self, exception: Exception):
         self.is_success = False

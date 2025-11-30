@@ -31,6 +31,8 @@ class Variableable:
                 continue
 
             for var in _vars:
-                alls.append(var)
+                _new = var.copy()
+                _new.autoApply()
+                alls.append(_new)
 
         return alls

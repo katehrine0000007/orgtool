@@ -7,7 +7,7 @@ class Equate(Act):
     def getArguments(self) -> ArgumentsDict:
         return ArgumentsDict.fromList([
             Same(
-                name = 'link'
+                name = 'equate_this'
             ),
             Same(
                 name = 'to'
@@ -15,4 +15,4 @@ class Equate(Act):
         ])
 
     async def implementation(self, i: ArgumentsDict) -> None:
-        i.items['link'].current = i.get('to')
+        i.items['equate_this'].current = i.get('to')

@@ -3,6 +3,9 @@ from App import app
 from pydantic import Field
 from typing import Any
 from App.Arguments.ArgumentsDict import ArgumentsDict
+from App.Queue.LinkValue import LinkValue
+from App.Queue.ValueWithReplaces import ValueWithReplaces
+from App.Arguments.ArgumentsDict import ArgumentsDict
 
 class Item(Object):
     '''
@@ -31,12 +34,33 @@ class Item(Object):
     def getBuildArguments(self):
         return self.build
 
-    def getArguments(self):
-        return self.arguments
+    def getArguments(self) -> dict:
+        original_arguments = self.arguments
+        final_arguments = {}
+
+        for key, val in original_arguments.items():
+            final_arguments[key] = self.getArgument(original_arguments, key, val)
+
+        return ArgumentsDict(items = final_arguments)
+
+    def getArgument(self, original_arguments: dict, key: str, val: str | dict) -> Any:
+        # Computing value
+        if type(val) != dict:
+            return val
+
+        if 'direct_value' in val:
+            vals = LinkValue(value = val.get('direct_value'))
+
+            return vals.toLink(self._queue.prestart, self._queue.items)
+
+        if 'replacements' in val:
+            vals = ValueWithReplaces(value = val)
+
+            return vals.toString()
 
     async def run(self):
         arguments = self.getArguments()
-        self.log(f"Running {self.predicate} with arguments {arguments}")
+        self.log(f"Running {self.predicate} with arguments {arguments.items}")
 
         item_class = self.getPredicate()
         item_instance = item_class(**self.getBuildArguments())

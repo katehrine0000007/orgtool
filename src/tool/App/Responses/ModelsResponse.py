@@ -1,17 +1,30 @@
 from .Response import Response
 from pydantic import Field
-from typing import List
 
 class ModelsResponse(Response):
-    data: List = Field(default = [])
+    models: list = Field(repr=True, default = [])
 
     def toDict(self) -> list:
         out = []
 
-        for item in self.data:
+        for item in self.models:
             if hasattr(item, 'toJson') == False:
                 out.append(None)
             else:
                 out.append(item.toJson())
 
         return out
+
+    def toData(self):
+        items = []
+        for item in self.models:
+            items.append(item.toData())
+
+        return items
+
+    @staticmethod
+    def fromItems(items):
+        print(items)
+        new = ModelsResponse(models = items)
+
+        return new

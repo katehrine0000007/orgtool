@@ -5,6 +5,7 @@ from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
 from App.Arguments.Assertions.InputNotInValues import InputNotInValues
 from App.Arguments.Objects.Executable import Executable
 from App.Logger.Log import Log
+from Data.JSON import JSON
 
 class Console(View):
     '''
@@ -21,8 +22,10 @@ class Console(View):
     async def implementation(self, i: dict = {}):
         executable = i.get('i')
         assert executable.meta.can_be_executed, 'cannot be executed'
+        results = await executable().execute(i = i)
 
-        return await executable().execute(i = i)
+        _json = JSON(data = results.to_json())
+        print(_json.dump(indent = 4))
 
     @classmethod
     def getArguments(cls) -> ArgumentsDict:

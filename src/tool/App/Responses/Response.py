@@ -1,9 +1,10 @@
 from App.Objects.Object import Object
-from pydantic import Field
 from typing import Any
 
 class Response(Object):
-    data: Any = Field(default = None)
+    '''
+    class fields must not be used directly
+    '''
 
     def toDict(self) -> Any:
         '''
@@ -11,5 +12,12 @@ class Response(Object):
         '''
         return self.data
 
-    def show(self) -> Any:
-        return self.data
+    def toData(self) -> Any:
+        pass
+
+    @staticmethod
+    def fromItems(items):
+        '''
+        Allows to create Response without constructor
+        '''
+        pass
