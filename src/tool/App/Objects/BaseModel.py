@@ -22,6 +22,13 @@ class BaseModel(PydanticBaseModel):
         cls.meta = cls.Meta(cls)
         # cls.submodules = cls.Submodules(cls)
 
+    @classmethod
+    def mount(cls):
+        '''
+        Method that called after loading
+        '''
+        pass
+
     def __init_subclass__(cls):
         for item in cls.__mro__:
             if hasattr(item, "init_subclass") == True:

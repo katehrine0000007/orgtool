@@ -1,9 +1,9 @@
-from ...Arguments.Argument import Argument
+from ..Argument import Argument
 from pydantic import Field, computed_field
 from App import app
 
 # its like <select> in html or radioboxes idk
-class LimitedValues(Argument):
+class Literal(Argument):
     values: list[Argument] = Field(default = [])
     strict: bool = Field(default = True)
 

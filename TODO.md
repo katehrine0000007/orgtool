@@ -4,8 +4,8 @@
 - [x] Views
 - [x] Arguments
 - [x] ArgumentsDict
-- [ ] hooks need to be refactored (its impossible to debug this)
-- [ ] switchextractor
+- [x] hooks need to be refactored (its impossible to debug this)
+- [x] switchextractor
 - [x] queue
 - [ ] queue: repeat (or Queue: settings)
 - [ ] App.DB.Flush
@@ -13,8 +13,8 @@
 - [ ] App.Storage.StorageUnit
 - [ ] App.Storage.StorageUnitStorage
 - [ ] App.Objects.Client
-- [ ] App.Objects.Submodules
-- [ ] App.Objects.Linkable
+- [x] App.Objects.Submodules
+- [x] App.Objects.Linkable
 - [x] App.Config.Config
 - [ ] App.Queue.ValueWithReplaces
 - [ ] Data.Text

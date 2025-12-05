@@ -21,17 +21,10 @@ class Saveable(Object, Linkable):
 
     self_name: ClassVar[str] = 'Saveable'
 
-    display_name: str = Field(default=None)
+    # set by implementation
     original_name: str = Field(default=None)
-    display_description: str = Field(default=None)
     original_description: str = Field(default=None)
-    index_description: str = Field(default=None)
-
-    # Time of object creation
     created_at: datetime = Field(default_factory=lambda: datetime.now())
-    edited_at: datetime = Field(default=None)
-
-    # Time of object creation generally
     declared_created_at: datetime = Field(default_factory=lambda: datetime.now())
 
     '''
@@ -41,6 +34,13 @@ class Saveable(Object, Linkable):
     object_meta: ObjectMeta = Field(default = ObjectMeta())
     saved: Saved = Field(default = Saved())
 
+    # set by user
+    display_name: str = Field(default=None)
+    display_description: str = Field(default=None)
+    index_description: str = Field(default=None)
+    edited_at: datetime = Field(default=None)
+
+    # types
     collection: bool = Field(default=False)
     unlisted: bool = Field(default=False)
 

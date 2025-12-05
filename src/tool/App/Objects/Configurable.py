@@ -1,3 +1,6 @@
+from App import app
+from typing import Any
+
 class Configurable:
     '''
     Allows to define settings of Object (that are App.Arguments.Argument)
@@ -24,3 +27,6 @@ class Configurable:
                 alls.append(item)
 
         return alls
+
+    def getOption(self, name: str, default: Any = None):
+        return app.app.Config.get(name, default)

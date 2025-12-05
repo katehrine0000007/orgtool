@@ -1,5 +1,5 @@
+from App.Objects.BaseModel import BaseModel
 from App.Objects.Object import Object
-from typing import Any, Literal
 from pydantic import Field
 from enum import Enum
 
@@ -7,7 +7,7 @@ class LinkTypeEnum(Enum):
     CONTENT = 0 # will be used for json content insertion
     EXTERNAL = 1
 
-class Link(Object):
+class Link(BaseModel):
     '''
     Link to an object
     '''

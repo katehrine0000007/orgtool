@@ -12,4 +12,4 @@ class LinksTest(Test):
             common = True,
             link_type = LinkTypeEnum.EXTERNAL.value
         ))
-        print(txt)
+        print(txt.model_dump_json(indent=4))

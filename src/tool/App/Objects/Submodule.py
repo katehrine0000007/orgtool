@@ -3,14 +3,21 @@ from pydantic import Field
 from typing import Any, Literal
 from enum import Enum
 
-class SubmoduleConnectionTypeEnum(Enum):
-    INTERNAL = 0
-    EXTERNAL = 1 # function
-
 class Submodule(BaseModel):
     '''
     Link to another module
     '''
 
+    class ConnectionEnum(Enum):
+        INTERNAL = 0
+        EXTERNAL = 1 # function
+
     module: Any
-    value: SubmoduleConnectionTypeEnum = Field(default = SubmoduleConnectionTypeEnum.INTERNAL.value)
+    value: ConnectionEnum = Field(default = ConnectionEnum.INTERNAL.value)
+    role: list[Literal['object', 'wheel']] = Field(default = ['object'])
+    '''
+    what roles are exist?
+    
+    object - part of common objec
+    wheel - will be used in Client or Wheel
+    '''

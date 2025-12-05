@@ -8,10 +8,12 @@ class NotAnObjectError(Exception):
 
 class LoadedObject(Object):
     is_success: bool = False
+    is_submodule: bool = False
 
     title: str = None
-    category: list[str] = None
     module: Any = None
+
+    category: list[str] = None
 
     @property
     def name(self) -> str:
@@ -42,7 +44,11 @@ class LoadedObject(Object):
 
     def succeed_load(self):
         self.is_success = True
-        self.log(f"Loaded {self.module.self_name.lower()} {self.module.meta.class_name_joined}")
+
+        if self.is_submodule:
+            self.log(f"(submodule) Loaded {self.module.self_name.lower()} {self.module.meta.class_name_joined}")
+        else:
+            self.log(f"Loaded {self.module.self_name.lower()} {self.module.meta.class_name_joined}")
 
     def failed_load(self, exception: Exception):
         self.is_success = False
@@ -72,8 +78,7 @@ class LoadedObject(Object):
             # Hook cannot be triggered for all class, so ive added "mount" hack
             #common_object.triggerHooks('loaded')
 
-            if hasattr(common_object, 'mount') == True:
-                common_object.mount()
+            common_object.mount()
         except Exception as e:
             self.log(e, exception_prefix = "exception when importing: ")
 

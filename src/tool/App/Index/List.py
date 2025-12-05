@@ -21,6 +21,7 @@ class List(Object):
         # traceback.print_list(traceback.extract_stack())
 
         self.log("Loading objects list...")
+        _cached_names = []
 
         for item_path in self.scan(search_dir):
             plugin = LoadedObject.from_path(item_path)
@@ -28,12 +29,31 @@ class List(Object):
             try:
                 plugin.module = plugin.get_module()
                 plugin.succeed_load()
+
             except NotAnObjectError:
                 pass
             except Exception as e:
                 plugin.failed_load(e)
 
             self.items.append(plugin)
+
+            # Loading submodules
+            if plugin.module != None:
+                _cached_names.append(plugin.module.meta.class_name_joined)
+
+                submodules = plugin.module.getAllSubmodules()
+                for submodule in submodules:
+                    name = submodule.module.meta.class_name_joined
+                    if name in _cached_names:
+                        continue
+
+                    _obj = LoadedObject()
+                    _obj.is_submodule = True
+                    _obj.category = submodule.module.meta.class_name
+                    _obj.title = submodule.module.__name__
+                    _obj.module = submodule.module
+
+                    _obj.succeed_load()
 
     def scan(self, path: Path) -> Generator[Path]:
         items: list = list()
@@ -49,7 +69,7 @@ class List(Object):
         # adding priority and plugins that are not in priority. Maybe its better to do sort there*?
         for plugin in priority + items:
             # Hardcoded check. should be changed
-            if plugin.name in ['', '__pycache__', 'Base.py', 'tool.py']:
+            if plugin.name in ['', '__pycache__', 'Base.py', 'tool.py', '.gitkeep']:
                 continue
 
             yield plugin.relative_to(path)
