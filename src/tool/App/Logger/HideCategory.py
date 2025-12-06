@@ -43,7 +43,7 @@ class HideCategory(Object):
             if section_from_config == '':
                 section_meets = True
             else:
-                section_meets = ".".join(log.section).startswith(section_from_config)
+                section_meets = ".".join(log.section.value).startswith(section_from_config)
 
         if self.where != None and context not in self.where:
             context_meets = False

@@ -5,10 +5,12 @@ from pathlib import Path
 class File(Object):
     path: str = Field(default = None)
     name: str = Field(default = None)
+    ext: str = Field(default = None)
     size: int = Field(default = 0)
     stat: dict = Field(default = {})
+    # is_common: bool = Field(default = True)
 
-    def constructor(self):
+    def countStats(self):
         path = Path(self.path)
         stat = path.stat()
 
@@ -30,6 +32,8 @@ class File(Object):
             item = File(
                 path = str(path)
             )
+
+        item.countStats()
 
         return FileType(file = item)
 

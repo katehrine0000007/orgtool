@@ -29,4 +29,4 @@ class Configurable:
         return alls
 
     def getOption(self, name: str, default: Any = None):
-        return app.app.Config.get(name, default)
+        return app.Config.get(name, default)

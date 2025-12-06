@@ -33,7 +33,6 @@ class Config(Object):
 
     @classmethod
     def mount(cls):
-      
         configs = cls(
             path = app.app.storage.joinpath("config")
         )

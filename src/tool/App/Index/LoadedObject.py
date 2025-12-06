@@ -88,7 +88,7 @@ class LoadedObject(Object):
 
             common_object.mount()
         except Exception as e:
-            self.log(e, exception_prefix = "exception when importing: ")
+            self.log_error(e, exception_prefix = "exception when importing: ")
 
         return common_object
 

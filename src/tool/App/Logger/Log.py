@@ -4,7 +4,17 @@ from pydantic import Field
 from datetime import datetime
 
 class Log(Object):
+    '''
+    message - passed message
+    time - when log was created
+    kind - type (error, success, message)
+    section - class name where log was taken
+    prefix - additional data
+    types - internal type of log (not used)
+    '''
+
     message: str = Field(default="-")
+    types: list[str] = Field(default = [])
     time: datetime = Field(default_factory=lambda: datetime.now())
     kind: LogKind.LogKind = Field(default = LogKind.LogKind())
     section: LogSection.LogSection = Field(default = LogSection.LogSection())

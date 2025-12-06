@@ -43,6 +43,7 @@ class Logger(Object):
     def log(self, 
             message: str | Exception, 
             section: str | list = ['Nonce'],
+            types: list[str] = [],
             kind: str = LogKindEnum.message.value,
             prefix: dict[str, int] = None, 
             exception_prefix: str = '',
@@ -111,9 +112,7 @@ class Logger(Object):
     def constructor(self):
         if self.log_to_console == True:
             async def print_log(to_print, check_categories):
-                should_print = self._shouldPrint(to_print, check_categories, 'console')
-
-                if should_print == True:
+                if self._shouldPrint(to_print, check_categories, 'console') == True:
                     items = PrintLog()
                     await items.implementation({'log': to_print})
 
@@ -123,8 +122,7 @@ class Logger(Object):
             if self.log_file == None:
                 return
 
-            should_print = self._shouldPrint(to_print, check_categories, 'file')
-            if should_print == True:
+            if self._shouldPrint(to_print, check_categories, 'file') == True:
                 self.log_file.log(to_print)
 
         self.addHook('log', print_file)
