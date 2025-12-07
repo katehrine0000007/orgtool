@@ -3,13 +3,18 @@ from typing import Any
 
 class Response(Object):
     '''
-    Object for wrapping responses from Executable. Must be extended with unique field
+    Wrapper for responses from Executable. Must be extended with unique field
 
-    class fields must not be used directly
+    class fields must not be used directly.
+
+    Abstract methods:
+
+    fromItems() - create class instance from data
+
+    To JSON:
+
+    to_json()
     '''
-
-    def toData(self) -> Any:
-        pass
 
     @staticmethod
     def fromItems(items):

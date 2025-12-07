@@ -4,7 +4,8 @@ from pydantic import Field, computed_field
 
 class Orig(Argument):
     '''
-    Converts JSON into pydantic model
+    JSON into pydantic model. The class passed in "orig"
+    If input is already an instance of "orig", it just returns it
     '''
     orig: Any = Field(default = None)
 

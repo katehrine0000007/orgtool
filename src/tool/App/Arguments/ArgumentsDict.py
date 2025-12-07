@@ -56,7 +56,7 @@ class ArgumentsDict(Object):
 
     def toDict(self, exclude: list = []) -> dict:
         '''
-        Returns the dict?
+        Returns the dict
         '''
         _items = {}
         for name in self.toNames():
@@ -90,5 +90,10 @@ class ArgumentsDict(Object):
         Appends another ArgumentsDict's items to current ArgumentsDict
         '''
 
-        for item in another_dict.items:
+        # WORKAROUNDDD. do not write code when sleepy. I dont know why it returns as 
+        _items = another_dict.items
+        if hasattr(_items, 'toList'):
+            _items = _items.items
+
+        for item in _items:
             self.items.append(item)

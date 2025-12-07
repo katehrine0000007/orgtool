@@ -14,7 +14,6 @@ class DictList(Object):
 
     def toNames(self) -> list:
         names = []
-
         for val in self.toList():
             names.append(val.name)
 

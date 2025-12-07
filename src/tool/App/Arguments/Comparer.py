@@ -1,5 +1,4 @@
 from App.Objects.Object import Object
-from App.Data.DictList import DictList
 from App.Arguments.ArgumentsDict import ArgumentsDict
 from .Argument import Argument
 from pydantic import Field

@@ -6,7 +6,6 @@ from pathlib import Path
 from App import app
 import secrets
 
-
 class StorageItem(Object):
     '''
     Implements storage with DB and storageunits.

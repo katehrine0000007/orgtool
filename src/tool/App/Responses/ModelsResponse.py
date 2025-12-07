@@ -15,13 +15,6 @@ class ModelsResponse(Response):
 
         return out
 
-    def toData(self):
-        items = []
-        for item in self.models:
-            items.append(item.toData())
-
-        return items
-
     @staticmethod
     def fromItems(items):
         print(items)

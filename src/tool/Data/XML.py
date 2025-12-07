@@ -1,17 +1,11 @@
-from App.Executables.Extractor import Extractor
-from App.Arguments.ArgumentsDict import ArgumentsDict
-from App.Arguments.Types.String import String
-from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
+from App.Objects.Object import Object
+from pydantic import Field
 
-class XML(Extractor):
+class XML(Object):
+    xml: str = Field()
+
     @classmethod
-    def getArguments(cls):
-        return ArgumentsDict.fromList([
-            String(
-                name = 'xml',
-                assertions = [NotNoneAssertion()]
-            )
-        ])
+    def getConverters(cls) -> list:
+        from Data.XMLToJson import XMLToJson
 
-    async def implementation(self, i):
-        pass
+        return [XMLToJson]
