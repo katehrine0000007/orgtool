@@ -31,6 +31,10 @@ class Extractor(Executable):
         self.variables.get("items").append(out)
 
     async def implementation(self, i = {}) -> None:
+        '''
+        not supposed to return something
+        '''
+
         pass
 
     async def implementation_wrap(self, i = {}) -> ModelsResponse:

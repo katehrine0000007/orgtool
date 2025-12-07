@@ -1,10 +1,11 @@
 from App.Objects.Object import Object
 from App.Storage.StorageUnit import StorageUnit
-from App.DB.DBConnection import DBConnection
+from App.DB.ConnectionAdapters.ConnectionAdapter import ConnectionAdapter
 from pydantic import Field
 from pathlib import Path
 from App import app
 import secrets
+
 
 class StorageItem(Object):
     '''
@@ -17,11 +18,15 @@ class StorageItem(Object):
     '''
 
     name: str = Field()
-    display_name: str = Field(default = None)
     directory: str = Field(default = None)
-    db: DBConnection = Field(default = None)
-    _path: str = None
+    db: dict = Field(default = None)
+
+    display_name: str = Field(default = None)
+
     _storage_dir_name = 'storage'
+
+    adapter: ConnectionAdapter = None
+    _path: str = None
 
     def getDir(self):
         return self._path
@@ -38,12 +43,10 @@ class StorageItem(Object):
 
         return _item
 
-    def getDB(self) -> DBConnection:
-        pass
-
     def constructor(self):
         self._initStorage()
-        self._initDB()
+        if self.db != None:
+            self.adapter = self.getDBAdapterByName(self.db.get('adapter'))
 
     def _initStorage(self):
         if self.directory != None:
@@ -58,6 +61,11 @@ class StorageItem(Object):
         self._path.mkdir(exist_ok=True)
         self.getStorageDir().mkdir(exist_ok=True)
 
-    def _initDB(self):
-        if self.db != None:
-            self.db._constructor(self)
+    def getDBAdapterByName(self, adapter_name: str):
+        from App.DB.ConnectionAdapters.SQLiteAdapter import SQLiteAdapter
+
+        _adapters = {'sqlite': SQLiteAdapter}
+        _item = _adapters.get(adapter_name)()
+        _item._constructor(self)
+
+        return _item

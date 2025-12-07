@@ -25,7 +25,7 @@ class Random(Extractor):
             )
         ])
 
-    async def implementation(self, i) -> None:
+    def implementation(self, i) -> None:
         objects = Number()
         objects.number = random.randint(i.get('min'), i.get('max'))
 

@@ -24,13 +24,13 @@ class Storage(Object):
             StorageItem(
                 name = 'content',
                 db = {
-                    'protocol': 'sqlite'
+                    'adapter': 'sqlite',
                 }
             ),
             StorageItem(
                 name = 'tmp',
                 db = {
-                    'protocol': 'sqlite',
+                    'adapter': 'sqlite',
                     'content': ':memory:'
                 }
             ),

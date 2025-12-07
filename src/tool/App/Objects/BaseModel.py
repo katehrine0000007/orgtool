@@ -54,33 +54,28 @@ class BaseModel(PydanticBaseModel):
         def mro(self) -> list:
             return self.outer.__mro__
 
-        @property
-        def available_at(self):
+        def getAvailableContexts(self):
             return ['web', 'cli', '*']
 
-        @property
-        def required_modules(self):
+        def getRequiredModules(self):
             return []
 
-        @property
-        def is_abstract(self):
+        def isAbstract(self):
             return False
 
-        @property
-        def is_hidden(self) -> bool:
+        def isHidden(self) -> bool:
             return getattr(self, "hidden", False) == True
 
         @property
         def can_be_executed(self):
-            return self.is_abstract == False and self.is_hidden == False # and self.outer hasclass Execute
+            return self.isAbstract() == False and self.isHidden() == False # and self.outer hasclass Execute
 
-        @property
-        def get_not_installed_required_modules(cls) -> list:
+        def getNotInstalledModules(self) -> list:
             all_installed = {dist.metadata["Name"].lower() for dist in distributions()}
             satisf_libs = []
             not_libs = []
 
-            for required_module in cls.required_modules:
+            for required_module in self.getRequiredModules():
                 module_versions = required_module.split("==")
                 module_name = module_versions[0]
 
@@ -91,9 +86,8 @@ class BaseModel(PydanticBaseModel):
 
             return not_libs
 
-        @property
-        def is_required_modules_installed(cls) -> bool:
-            return len(cls.get_not_installed_required_modules()) > 0
+        def isRequiredModulesInstalled(cls) -> bool:
+            return len(cls.getNotInstalledModules()) == 0
 
         @property
         def main_module(cls):
@@ -129,6 +123,5 @@ class BaseModel(PydanticBaseModel):
         def class_module(cls) -> str:
             return cls.outer.__module__
 
-        @property
-        def can_be_used_at(cls, at):
-            return at in cls.available
+        def canBeUsedAt(cls, at: str):
+            return at in cls.getAvailableContexts()
