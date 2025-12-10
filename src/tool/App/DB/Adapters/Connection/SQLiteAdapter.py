@@ -3,6 +3,7 @@ from pydantic import Field
 from typing import Literal, Any
 
 class SQLiteAdapter(SQLAlchemyAdapter):
+    protocol_name = 'sqlite'
     content: str = Field(default = None)
 
     def getContent(self, storage_di: Any = None):

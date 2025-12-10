@@ -61,11 +61,7 @@ class StorageItem(Object):
         self.getStorageDir().mkdir(exist_ok=True)
 
     def getDBAdapterByName(self, adapter_name: str):
-        from App.DB.Adapters.Connection.SQLiteAdapter import SQLiteAdapter
-
-        _adapters = {'sqlite': SQLiteAdapter}
-        #print(list(app.app.objects.getObjectsByNamespace(['App', 'DB', 'Adapters', 'Connection'])))
-        _item = _adapters.get(adapter_name)()
-        _item._constructor(self)
-
-        return _item
+        for adapter in app.app.objects.getObjectsByNamespace(['App', 'DB', 'Adapters', 'Connection']):
+            _module = adapter.getModule()
+            if _module.protocol_name == adapter_name:
+                return _module()

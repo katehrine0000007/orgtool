@@ -15,7 +15,7 @@ class Saveable():
     source: Source = Field(default = Source(), repr = False)
     meta: ObjectMeta = Field(default = ObjectMeta(), repr = False)
 
-    @computed_field
+    @computed_field(repr = False)
     @property
     def saved_via(self) -> SavedVia:
         _item = SavedVia()

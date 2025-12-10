@@ -28,5 +28,7 @@ class Configurable:
 
         return alls
 
-    def getOption(self, name: str, default: Any = None):
+    # @staticmethod
+    @classmethod
+    def getOption(cls, name: str, default: Any = None):
         return app.Config.get(name, default)

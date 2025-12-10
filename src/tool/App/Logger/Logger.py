@@ -29,11 +29,11 @@ class Logger(Object):
         logs_dir.mkdir(exist_ok = True)
 
         logger = cls(
-            hidden_categories = app.Config.get("logger.hide_sections"),
+            hidden_categories = app.Config.get("logger.print.exclude"),
         )
-        logger.log_to_console = logger.getOption('logger.out_to_console')
+        logger.log_to_console = logger.getOption('logger.print.console')
 
-        if app.Config.get("logger.out_to_file") == True:
+        if app.Config.get("logger.print.file") == True:
             logger.log_file = LogFile.autoName(logs_dir)
             logger.log_file.open()
 
@@ -61,7 +61,10 @@ class Logger(Object):
             msg.prefix = LogPrefix(**prefix)
 
         if trigger == True:
-            self.triggerHooks('log', to_print = msg, check_categories = self.hidden_categories)
+            self.triggerHooks('log', 
+                to_print = msg, 
+                check_categories = self.hidden_categories,
+            )
 
         return msg
 
@@ -125,7 +128,7 @@ class Logger(Object):
 
         return [
             List(
-                name = 'logger.hide_sections',
+                name = 'logger.print.exclude',
                 default = [],
                 orig = Orig(
                     name = 'logger.hide_section',
@@ -133,11 +136,15 @@ class Logger(Object):
                 )
             ),
             Boolean(
-                name = 'logger.print_to_file',
+                name = 'logger.print.file',
                 default = False
             ),
             Boolean(
-                name = 'logger.print_to_console',
+                name = 'logger.print.console',
                 default = True
+            ),
+            Boolean(
+                name = 'logger.print.console.show_role',
+                default = False
             )
         ]

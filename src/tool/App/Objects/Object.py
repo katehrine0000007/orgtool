@@ -20,5 +20,4 @@ class Object(BaseModel, AllowExtraFields, Linkable, Saveable, ModuleRequireable,
     '''
 
     self_name: ClassVar[str] = 'Object'
-    call: Any = None # : Call
     _db: Any = None  # : ConnectionAdapterObject

@@ -16,7 +16,7 @@ class Link(BaseModel):
     '''
 
     item: Any = Field() # : Object
-    role: list[Literal['object', 'thumbnail', 'common', 'revision']] = Field(default = ['object'])
+    role: list[Literal['object', 'thumbnail', 'common', 'revision'] | str] = Field(default = ['object'])
 
     @computed_field
     @property

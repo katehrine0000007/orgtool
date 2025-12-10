@@ -50,7 +50,7 @@ class App(Object):
         tmp_view = View(app = self)
         tmp_view.setAsCommon()
 
-        self.loadPlugins(self.cwd)
+        self.loadPlugins([self.cwd])
 
         view_name = self.argv.get('view', 'App.Console.Console.Console')
         view_class = self.objects.getByName(view_name)

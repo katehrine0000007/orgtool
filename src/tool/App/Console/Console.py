@@ -18,11 +18,10 @@ class Console(View):
         results = await executable().execute(i = i)
 
         if results == None:
-            self.log('nothing returned')
+            self.log('nothing returned', role = ['empty_response', 'view_message'])
         else:
             self.log(f'{executable.getClassNameJoined()} returned:')
-            _json = JSON(data = results.to_json())
-            print(_json.dump(indent = 4))
+            print(JSON(data = results.to_json()).dump(indent = 4))
 
     @classmethod
     def getArguments(cls) -> ArgumentsDict:
