@@ -1,5 +1,5 @@
 from App.Objects.Act import Act
-from App.Data.DictList import DictList
+from App.Objects.DictList import DictList
 from App.Arguments.ArgumentsDict import ArgumentsDict
 from App.Arguments.Objects.Same import Same
 

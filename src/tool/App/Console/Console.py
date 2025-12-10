@@ -1,6 +1,6 @@
 from App.View import View
 from App.Arguments.ArgumentsDict import ArgumentsDict
-from App.Data.DictList import DictList
+from App.Objects.DictList import DictList
 from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
 from App.Arguments.Assertions.InputNotInValues import InputNotInValues
 from App.Arguments.Objects.Executable import Executable

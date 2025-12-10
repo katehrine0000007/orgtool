@@ -1,10 +1,10 @@
 from App.Objects.Object import Object
 from App.Objects.Section import Section
-from App.Data.Increment import Increment
+from App.Objects.Increment import Increment
+from App.Objects.Index.List import List as ObjectsList
 from pathlib import Path
 from pydantic import ConfigDict
 from typing import Any
-from .Index.List import List as ObjectsList
 import queue
 import asyncio
 import threading

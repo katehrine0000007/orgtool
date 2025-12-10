@@ -3,8 +3,7 @@ from App.Objects.Object import Object
 
 class DictList(Object):
     '''
-    List that can be used as Dict.
-    Must provide 'name' field in each element at 'items'
+    List with object that contains "name" field and so can be used as Dict
     '''
 
     items: list[Object] # name-field-containing

@@ -1,6 +1,6 @@
 from App.Objects.Object import Object
 from App.Arguments.Argument import Argument
-from App.Data.DictList import DictList
+from App.Objects.DictList import DictList
 # from App.Arguments.Comparer import Comparer
 from pydantic import Field
 from typing import Any

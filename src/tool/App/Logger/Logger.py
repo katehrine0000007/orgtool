@@ -102,7 +102,7 @@ class Logger(Object):
         '''
         to shut up all messages:
 
-        "logger.hide_sections": [
+        [
             {
                 "section": [],
                 "wildcard": true,
@@ -110,6 +110,17 @@ class Logger(Object):
                 "where": ["console"]
             }
         ],
+
+        i recomend:
+
+        [
+            {
+                "section": ["App", "Objects", "Index", "LoadedObject"]
+            },
+            {
+                "section": ["Wrap"]
+            }
+        ]
         '''
 
         return [

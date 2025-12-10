@@ -57,4 +57,7 @@ class HideCategory(Object):
         return True
 
     def isContextMeets(self, context: str) -> bool:
-        return self.where == None or context in self.where
+        if self.where != None:
+            return context in self.where
+
+        return True
