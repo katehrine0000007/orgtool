@@ -17,17 +17,24 @@ class Linkable:
     def unlink(self, item: Link, type: int) -> None:
         pass
 
-    def addLink(self, item: Link) -> None:
-        #if self.links == None:
-            #self.links = []
+    def addLink(self, link: Link) -> None:
+        if self.getDb() != None:
+            self.getDb().flush(link.item)
+            self.getDb().addLink(link)
 
-        self.links.append(item)
+            return self
+
+        self.links.append(link)
 
     def getLinkedItems(self) -> list[Link]:
         '''
         Returns linked items, literally.
         Non-overridable!
         '''
+
+        if self.getDb() != None:
+            return self.getDb().getLinks()
+
         return self.links
 
     def getVirtualLinkedItems(self) -> list[Link]:

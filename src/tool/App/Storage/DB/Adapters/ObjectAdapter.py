@@ -11,12 +11,11 @@ class ObjectAdapter():
     def search(self):
         pass
 
-    def save(self):
-        pass
-
     def getObject(self):
         _content = JSON().fromText(self.content)
         _object_name = _content.data.get('saved_via').get('object_name')
         _class = app.ObjectsList.getByName(_object_name).getModule()
+        _item = _class.model_validate(_content.data, strict = False)
+        _item.setDb(self)
 
-        return _class.model_validate(_content.data, strict = False)
+        return _item

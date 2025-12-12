@@ -30,7 +30,7 @@ class BaseModel(PydanticBaseModel):
 
     @classmethod
     def canBeExecuted(cls):
-        return True
+        return hasattr(cls, 'execute')
 
     @classmethod
     def getClassName(cls):

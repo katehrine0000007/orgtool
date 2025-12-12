@@ -6,5 +6,8 @@ class DBInsertable():
     def setDb(self, db):
         self._db = db
 
+    def getDb(self):
+        return self._db
+
     def getDbId(self):
         return self._db.uuid

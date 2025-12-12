@@ -11,10 +11,13 @@ class FlushTest(Test):
         items = [Text(text='123456'),Text(text='asdfghjkl')]
 
         _storage = app.Storage.get('content')
-        _item = _storage.adapter.insertObject(items[_id])
+        _item = _storage.adapter.flush(items[_id])
 
         self.log(f'we saved object {_id} to id {_item.uuid}')
         self.log(f'getting object from db item')
 
         self.log_raw(_item.getObject())
         self.log_raw(_item.getObject().to_json())
+
+        _lnked = Text(text='888')
+        _item.getObject().link(_lnked, role = ['internal'])

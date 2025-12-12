@@ -18,7 +18,7 @@
 - [x] App.Config.Config
 - [ ] Data.Text
 - [x] App.Console.PrintLog
-- [ ] App.Objects.Submodules.Submodule, App.Objects.Configurable.Configurable: MROThing (?)
+- [ ] ~~App.Objects.Submodules.Submodule, App.Objects.Configurable.Configurable: MROThing (?)~~
 - [x] move App.Data.DictList to App.Objects.DictList
 - [ ] ~~object that can contain self subtypes (?)~~
 - [x] Files.FileManager.Navigate
@@ -43,14 +43,15 @@
 - [ ] allow to replace some field with link
 - [ ] db flush: move links
 - [ ] db flush: replaced links
-- [ ] custom object can contain "source" and "meta" fields in it and replace the original (?)
+- [ ] ~~custom object can contain "source" and "meta" fields in it and replace the original (?)~~
 - [ ] db flush: when loading from db save the link to db's item and add sync between them
 - [x] objects list: split to Namespace, allow to add another object lists
 - [ ] ~~objects list: fallback to common if module not found~~
-- [ ] arguments strangely passes to executable
+- [x] arguments strangely passes to executable
 - [ ] daemon, App.Daemons.StartDaemon, implementation_cycle() (?)
 - [ ] Configurable: role to argumnet 'env' or 'config'
 - [ ] db flush: export between dbs
 - [ ] submodule=displayment
 - [ ] objectlist adapter
 - [ ] pathes like {db name}:/{object}/{object id or name}
+- [x] "non-executable" check

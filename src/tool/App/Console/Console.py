@@ -13,7 +13,7 @@ class Console(View):
 
     async def implementation(self, i: dict = {}):
         executable = i.get('i')
-        assert executable.canBeExecuted(), 'cannot be executed'
+        assert executable.canBeExecuted(), 'object does not contains execute interface'
         results = await executable().execute(i = i)
 
         if i.get('print_result') == True:

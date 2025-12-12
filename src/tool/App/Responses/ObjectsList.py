@@ -23,3 +23,9 @@ class ObjectsList(Response):
         calls "convertTo()" to every item
         '''
         pass
+
+    @staticmethod
+    def fromItems(items):
+        new = ObjectsList(items = items)
+
+        return new

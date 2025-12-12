@@ -3,7 +3,7 @@ from pydantic import Field
 from typing import Any
 from pathlib import Path
 from App import app
-import importlib, sys
+import importlib
 
 class NotAnObjectError(Exception):
     pass

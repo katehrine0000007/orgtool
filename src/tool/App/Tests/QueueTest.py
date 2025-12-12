@@ -28,7 +28,7 @@ class QueueTest(Test):
                         "direct_value": "$0"
                     },
                     "to": {
-                        "direct_value": "#0.models.0.number"
+                        "direct_value": "#0.items.0.number"
                     }
                 }
             }]''',

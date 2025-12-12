@@ -4,6 +4,7 @@ from App.Objects.DictList import DictList
 from typing import Generator
 from pathlib import Path
 from pydantic import Field
+import sys
 
 class Namespace(Object):
     '''
@@ -24,6 +25,11 @@ class Namespace(Object):
 
     def constructor(self):
         self.items = DictList(items=[])
+
+        # Allows to import objects from other namespaces
+        _root = str(self.root)
+        if _root not in sys.path:
+            sys.path.append(_root)
 
     def load(self):
         load_all = False
