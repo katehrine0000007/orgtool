@@ -10,8 +10,8 @@ class FlushTest(Test):
 
         items = [Text(text='123456'),Text(text='asdfghjkl')]
 
-        _storage = app.Storage.get('content')
-        _item = _storage.adapter.flush(items[_id])
+        _storage = app.Storage.get('tmp')
+        _item = items[_id].flush(_storage)
 
         self.log(f'we saved object {_id} to id {_item.uuid}')
         self.log(f'getting object from db item')
@@ -20,4 +20,10 @@ class FlushTest(Test):
         self.log_raw(_item.getObject().to_json())
 
         _lnked = Text(text='888')
-        _item.getObject().link(_lnked, role = ['internal'])
+        #_lnked.flush(_storage)
+
+        try:
+            _item.getObject().link(_lnked, role = ['internal'])
+        except AssertionError as e:
+            self.log('assertion error so item not saved')
+            raise e

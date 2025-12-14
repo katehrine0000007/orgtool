@@ -4,7 +4,6 @@ from typing import ClassVar
 from pydantic import Field, computed_field
 
 class Saveable():
-    _internal_fields: ClassVar[str] = ['meta', 'saved_via', 'links']
     self_name: ClassVar[str] = 'Saveable'
 
     '''

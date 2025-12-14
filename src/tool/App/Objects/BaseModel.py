@@ -1,4 +1,4 @@
-from pydantic import BaseModel as PydanticBaseModel, computed_field, Field
+from pydantic import BaseModel as PydanticBaseModel, computed_field, model_serializer
 from App.Objects.LinkInsertion import LinkInsertion
 from typing import Literal
 
@@ -9,6 +9,8 @@ class BaseModel(PydanticBaseModel):
 
     # Workaround to add model_serializer (that is in Linkable) check
     _convert_links: bool = False
+    _include_extra: bool = True
+    _excludes: list[str] = None
 
     @computed_field
     @property
@@ -29,7 +31,8 @@ class BaseModel(PydanticBaseModel):
                 convert_links: Literal['unwrap', 'none'] = 'none', 
                 exclude_internal: bool = True,
                 exclude_none: bool = False,
-                exclude: list[str] = []):
+                exclude: list[str] = [],
+                include_extra: bool = True):
         '''
         convert_links: replace LinkInsertions with their "unwrap()" function results
 
@@ -38,17 +41,22 @@ class BaseModel(PydanticBaseModel):
 
         excludes = []
         if exclude_internal == True:
-            excludes = list(self._internal_fields)
+            for _exclude in self._internal_fields:
+                excludes.append(_exclude)
+
         for item in exclude:
             excludes.append(item)
 
         self._convert_links = False
+        self._include_extra = include_extra
+        self._excludes = excludes
         if convert_links == 'unwrap':
             self._convert_links = True
 
-        return self.model_dump(mode = 'json', 
-                               exclude=excludes, 
-                               exclude_none = exclude_none)
+        results = self.model_dump(mode = 'json', 
+                exclude_none = exclude_none)
+
+        return results
 
     @classmethod
     def getMRO(cls) -> list:
@@ -112,3 +120,40 @@ class BaseModel(PydanticBaseModel):
 
             if isinstance(item, PydanticBaseModel):
                 item.__init_subclass__()
+
+    @model_serializer
+    def serialize_model_with_links(self) -> dict:
+        result = dict()
+        _field_names = list()
+        for field_name in self.__class__.model_fields:
+            _field_names.append(field_name)
+        for field_name in self.__class__.model_computed_fields:
+            _field_names.append(field_name)
+
+        for field_name in _field_names:
+            if field_name in self._excludes:
+                continue
+
+            value = getattr(self, field_name)
+
+            if isinstance(value, LinkInsertion):
+                value.setDb(self.getDb())
+                if self._convert_links == True:
+                    result[field_name] = value.unwrap()
+                else:
+                    result[field_name] = value
+            elif (isinstance(value, list) and value and isinstance(value[0], LinkInsertion)):
+                result[field_name] = []
+                for item in value:
+                    item.setDb(self.getDb())
+
+                    if self._convert_links == True:
+                        result.get('field_name').append(item.unwrap())
+            else:
+                result[field_name] = value
+
+        if self._include_extra == True:
+            for key, val in self.model_extra.items():
+                result[key] = val
+
+        return result

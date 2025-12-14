@@ -12,13 +12,10 @@ from App.Storage.DB.DBInsertable import DBInsertable
 from App.Daemons.Daemonable import Daemonable
 from typing import ClassVar
 
-class Object(BaseModel, AllowExtraFields, Linkable, Saveable, ModuleRequireable, Section, Submodulable, Hookable, Configurable, Convertable, DBInsertable, Daemonable):
+class Object(BaseModel, Linkable, Saveable, ModuleRequireable, Section, Submodulable, Hookable, Configurable, Convertable, DBInsertable, Daemonable, AllowExtraFields):
     '''
-    The base class of app, extended pydantic BaseModel.
-    Fields can be flushed to json, also there is Section (log) functions and hooks.
-
-    MRO's:
-    Validable, Configurable, Submodulable, Variableable
+    The base class of app
     '''
 
     self_name: ClassVar[str] = 'Object'
+    _internal_fields: ClassVar[list[str]] = ['meta', 'saved_via', 'links', 'db_info']

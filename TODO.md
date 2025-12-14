@@ -17,31 +17,29 @@
 - [x] App.Objects.Linkable
 - [x] App.Config.Config
 - [x] App.Console.PrintLog
-- [ ] ~~App.Objects.Submodules.Submodule, App.Objects.Configurable.Configurable: MROThing (?)~~
 - [x] move App.Data.DictList to App.Objects.DictList
-- [ ] ~~object that can contain self subtypes (?)~~
 - [x] logger: section skips
 - [x] logger: output to file
 - [x] ~~App.Executables.Call list~~ List of running executables
 - [x] flushed object: allow to override name (ObjectMeta.object_names)
-- [x] ~~add collections?~~ allow override getLinks
+- [x] ~~add collections?~~ allow to override getLinks
 - [x] get rid of saveable
 - [x] Executable.common_object: move to submodule with common name
 - [x] declare requirements that module uses
 - [x] db flush: move links
 - [x] allow to replace some field with link
 - [x] db flush: replaced links
-- [ ] ~~custom object can contain "source" and "meta" fields in it and replace the original (?)~~
 - [x] db flush: when loading from db save the link to db's item and add sync between them
 - [x] objects list: split to Namespace, allow to add another object lists
-- [ ] ~~objects list: fallback to common if module not found~~
 - [x] arguments strangely passes to executable
 - [x] daemon, App.Daemons.StartDaemon, implementation_cycle() (?)
-- [ ] Configurable: role to argument 'env' or 'config'
+- [x] Configurable: role of the argument 'env' or 'config'
+- [x] extra fields are not saving
 - [ ] db flush: export between dbs
 - [ ] objectlist adapter
+- [ ] argument: default env val
 - [x] VirtualPath
-- [ ] VirtualPath pagination (adapter navigation also)
+- [ ] VirtualPath pagination (adapter pagination also)
 - [ ] DisplayType (?) submodule=displayment
 - [x] Data.XML
 - [x] Files.FileManager.Navigate
@@ -54,3 +52,13 @@
 - [ ] Web.RSS.GetFeed
 - [ ] Web.DownloadManager.Manager
 - [ ] Data.Text
+
+others:
+
+- [ ] Remove Arguments and Variable functions and move them to submodules system with role=validation or role=variable
+- [ ] custom object can contain "source" and "meta" fields in it and replace the original, so name it differently?
+- [ ] object that can contain self subtypes, for example File can be imagined as Image with file field. ObjectsList.findByMRO
+- [ ] there is similar functions: Configurable.getAllSettings, Validable.getAllArguments, Submodulable.getAllSubmodules, Variableable.getAllVariables, no functions to skip one of mro's item. maybe move it to MROThing
+- [ ] env variables and arguments are separate but theyre similar by usage. Argument should contain 'env' field, and if value is not passed, take value from env
+- [ ] Namespace: allow to not fallback to common
+- [ ] executable with "through" type, or "proxy" idk. for example, act that saves and runs after main

@@ -1,4 +1,4 @@
-# Entry point
+# boot
 
 from App.App import App
 #import tracemalloc

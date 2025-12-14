@@ -12,10 +12,6 @@ class Configurable:
 
     @classmethod
     def getAllSettings(cls, where: Literal['env', 'config'] = None):
-        '''
-        There are similar by code functions: Configurable.getAllSettings, Validable.getAllArguments, Submodulable.getAllSubmodules, Variableable.getAllVariables.
-        thats not so many, but it's better to move to MROThing or smth
-        '''
         alls = []
 
         for class_val in cls.getMRO():
@@ -41,4 +37,7 @@ class Configurable:
 
     @classmethod
     def getOption(cls, name: str, default: Any = None, where: Literal['env', 'config'] = 'config'):
-        return app.Config.get(name, default)
+        if where == 'config':
+            return app.Config.get(name, default)
+        
+        return app.Env.get(name, default)

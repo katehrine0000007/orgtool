@@ -15,4 +15,3 @@ class PostRun(Object):
                     app.Config.values.compare.append(_item)
                 elif _item.role == 'env':
                     app.Env.values.compare.append(_item)
-                    print(app.Env.values.compare)

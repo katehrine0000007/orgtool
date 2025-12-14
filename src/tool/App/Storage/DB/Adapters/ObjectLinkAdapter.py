@@ -1,10 +1,13 @@
 from App.Objects.Link import Link
 from Data.JSON import JSON
+from typing import Any
 
 class ObjectLinkAdapter():
     '''
     must contain: uuid, owner, target and roles
     '''
+
+    _connection: Any = None
 
     def getById(self, id: int):
         pass

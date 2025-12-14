@@ -65,6 +65,7 @@ class StorageItem(Object):
             _module = adapter.getModule()
             if _module.protocol_name == adapter_name:
                 item = _module()
-                item._constructor(self)
+                item._storage_item = self
+                item._constructor()
 
                 return item

@@ -1,6 +1,7 @@
 from Data.JSON import JSON
 from App import app
 from typing import Any
+from App.Objects.Object import Object
 
 class ObjectAdapter():
     '''
@@ -9,10 +10,9 @@ class ObjectAdapter():
     must contain uuid and content
     '''
 
-    def getById(self, id: int):
-        pass
+    _connection: Any = None
 
-    def _constructor(self, storage_item: Any = None):
+    def getById(self, id: int):
         pass
 
     def getObject(self):
@@ -23,3 +23,9 @@ class ObjectAdapter():
         _item.setDb(self)
 
         return _item
+
+    def flush_content(self, item: Object):
+        pass
+
+    def flush(self, item: Object):
+        pass

@@ -41,4 +41,4 @@ class Extractor(Executable):
 
         await self.implementation(i)
 
-        return ObjectsList(models = self.variables.get("items").current)
+        return ObjectsList(items = self.variables.get("items").current)

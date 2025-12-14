@@ -47,7 +47,7 @@ class Path(Object):
         res = ObjectsList()
 
         if len(self.parts) == 0:
-            for item in db.ObjectUnit.getQuery().limit(10):
+            for item in db.ObjectAdapter.getQuery().limit(10):
                 res.append(item.getObject())
         else:
             end_is_linked = False
@@ -59,7 +59,7 @@ class Path(Object):
 
                     continue
 
-                _cursor = db.ObjectUnit.getById(int(part))
+                _cursor = db.ObjectAdapter.getById(int(part))
                 assert _cursor != None, f"item with id {int(part)} not found"
 
                 if cursor != None:
