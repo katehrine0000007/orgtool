@@ -4,6 +4,7 @@ from App.Objects.DictList import DictList
 from typing import Generator
 from pathlib import Path
 from pydantic import Field
+from App.Logger.LogPrefix import LogPrefix
 import sys
 
 class Namespace(Object):
@@ -141,5 +142,8 @@ class Namespace(Object):
         return item.name in self._names
 
     @property
-    def append_prefix(self): # -> LogPrefix
-        return {'name': 'Namespace', 'id': self.name}
+    def append_prefix(self) -> LogPrefix:
+        return LogPrefix(
+            name = 'Namespace',
+            id = self.name
+        )

@@ -2,7 +2,7 @@ from App import app, ViewNotLoadedYetError
 
 class Section:
     '''
-    Adds to Object logger shortcuts
+    Logger shortcuts mixin
     '''
 
     @property
@@ -14,7 +14,7 @@ class Section:
         return self.getName()
 
     @property
-    def append_prefix(self): # -> dict[str, int]
+    def append_prefix(self): # -> LogPrefix
         '''
         Thing that shows id of some object like:
 

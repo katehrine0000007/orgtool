@@ -63,7 +63,7 @@ modules:
 - [ ] App.Logger.List
 - [ ] App.Logger.GetFile
 - [ ] Web.RSS.GetFeed
-- [ ] Data.Text
+- [x] Data.Text
 - [ ] Abstract.TODO or Abstract.Checkmarks
 
 documentation:
@@ -86,3 +86,5 @@ others:
 - [ ] env variables and arguments are separate but theyre similar by usage. Argument should contain 'env' field, and if value is not passed, take value from env
 - [ ] Namespace: allow to not fallback to common
 - [ ] executable with "through" type, or "proxy" idk. for example, act that saves and runs after main
+- [ ] safety: permissions per every class
+- [ ] restrictedpython when importing

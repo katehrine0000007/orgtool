@@ -2,10 +2,9 @@ from App.Objects.Object import Object
 from App import app
 from pydantic import Field
 from typing import Any
-from App.Arguments.ArgumentDict import ArgumentDict
 from App.Queue.LinkValue import LinkValue
 from App.Queue.ValueWithReplaces import ValueWithReplaces
-from App.Arguments.ArgumentDict import ArgumentDict
+from App.Logger.LogPrefix import LogPrefix
 
 class Item(Object):
     '''
@@ -68,5 +67,8 @@ class Item(Object):
         return await item_instance.execute(arguments)
 
     @property
-    def append_prefix(self): # -> LogPrefix
-        return {'name': 'Item', 'id': self._id}
+    def append_prefix(self) -> LogPrefix:
+        return LogPrefix(
+            name = 'item',
+            id = self._id
+        )

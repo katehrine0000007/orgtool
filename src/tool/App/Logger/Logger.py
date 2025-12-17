@@ -43,7 +43,7 @@ class Logger(Object):
             message: str | Exception, 
             section: str | list = ['Nonce'],
             role: list[str] = [],
-            prefix: dict[str, int] = None, 
+            prefix: LogPrefix = None, 
             exception_prefix: str = '',
             trigger: bool = True):
 
@@ -58,7 +58,7 @@ class Logger(Object):
         )
         msg.section = LogSection(value = section)
         if prefix != None:
-            msg.prefix = LogPrefix(**prefix)
+            msg.prefix = prefix
 
         if trigger == True:
             self.triggerHooks('log', 

@@ -3,6 +3,7 @@ from .Validable import Validable
 from App.Arguments.ArgumentValues import ArgumentValues
 from App.Responses.Response import Response
 from App.Objects.Variableable import Variableable
+from App.Logger.LogPrefix import LogPrefix
 from typing import ClassVar, Optional
 from pydantic import Field
 from App import app
@@ -23,6 +24,14 @@ class Executable(Object, Variableable, Validable):
     @classmethod
     def getClassEventTypes(cls) -> list:
         return ['before_execute', 'after_execute']
+
+    @property
+    def append_prefix(self) -> LogPrefix:
+        return LogPrefix(
+            id = self.id,
+            #name = self.class_name
+            name = 'Executable'
+        )
 
     async def implementation(self, i: dict) -> Response:
         '''
