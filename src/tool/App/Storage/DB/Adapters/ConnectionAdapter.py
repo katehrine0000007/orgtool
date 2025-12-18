@@ -9,6 +9,7 @@ class ConnectionAdapter(Object):
     '''
 
     protocol_name: ClassVar[str] = ''
+    _unserializable = ['_storage_item', '_id_gen', 'ObjectAdapter', 'ObjectLinkAdapter']
 
     protocol: str = Field(default = 'none')
     delimiter: str = Field(default = ':///')

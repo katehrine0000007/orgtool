@@ -3,6 +3,7 @@ from datetime import datetime
 from App.Storage.StorageItem import StorageItem
 from App.Arguments.ArgumentDict import ArgumentDict
 from App.Arguments.Types.String import String
+from App.Arguments.Types.Int import Int
 from App.Arguments.Objects.Orig import Orig
 from App.Arguments.Types.Boolean import Boolean
 from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
@@ -17,10 +18,6 @@ class Export(Act):
     @classmethod
     def getArguments(cls) -> ArgumentDict:
         return ArgumentDict(items = [
-            Orig(
-                name = 'items',
-                orig = ObjectsList
-            ),
             String(
                 name = 'export_name',
                 default = None
@@ -32,6 +29,10 @@ class Export(Act):
             Boolean(
                 name = 'as_zip',
                 default = False
+            ),
+            Int(
+                name = 'link_max_depth',
+                default = 10 # TODO move to const
             )
         ])
 
@@ -57,4 +58,4 @@ class Export(Act):
 
             self.log(f"flushed item to db {export_name}, uuid: {item.getDbId()}")
 
-        return AnyResponse.fromItems(news.directory)
+        return AnyResponse.fromItems(news)

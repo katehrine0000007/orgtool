@@ -11,6 +11,8 @@ class BaseModel(PydanticBaseModel):
     _convert_links: ClassVar[bool] = False
     _include_extra: ClassVar[bool] = True
     _excludes: ClassVar[list[str]] = None
+    _internal_fields: ClassVar[list[str]] = ['meta', 'saved_via', 'links', 'db_info']
+    _unserializable: ClassVar[list[str]] = []
 
     @computed_field
     @property
@@ -137,6 +139,9 @@ class BaseModel(PydanticBaseModel):
 
         for field_name in _field_names:
             if PydanticBaseModel._excludes != None and field_name in PydanticBaseModel._excludes:
+                continue
+
+            if field_name in self.__class__._unserializable:
                 continue
 
             value = getattr(self, field_name)

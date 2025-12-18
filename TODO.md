@@ -40,7 +40,8 @@ db and storage:
 - [x] objects list: split to Namespace, allow to add another object lists
 - [x] arguments strangely passes to executable
 - [x] extra fields are not saving
-- [ ] db flush: export between dbs
+- [x] db flush: export between dbs
+- [ ] App.Storage.Movement.ExportAsZip, App.Storage.Movement.ImportZip
 - [ ] objectlist adapter
 - [ ] argument: default env val
 - [x] VirtualPath
@@ -92,3 +93,5 @@ others:
 - [ ] executable with "through" type, or "proxy" idk. for example, act that saves and runs after main
 - [ ] safety: permissions per every class
 - [ ] restrictedpython when importing
+- [ ] Example: App.Storage.Movement.Import. mount_name is None by default, and if its not, its sets that the name from last part. and maybe its better to set default as lambda function?
+- [ ] App.Storage.Movement.Save and App.Storage.Movement.Export are the same

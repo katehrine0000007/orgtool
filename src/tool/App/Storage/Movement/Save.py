@@ -9,6 +9,10 @@ from App.Responses.AnyResponse import AnyResponse
 from App import app
 
 class Save(Act):
+    '''
+    Saves entries to StorageItem by name
+    '''
+
     @classmethod
     def getArguments(cls) -> ArgumentDict:
         return ArgumentDict(items = [

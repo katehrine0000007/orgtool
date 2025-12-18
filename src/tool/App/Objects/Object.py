@@ -18,4 +18,3 @@ class Object(BaseModel, Linkable, Saveable, ModuleRequireable, Section, Submodul
     '''
 
     self_name: ClassVar[str] = 'Object'
-    _internal_fields: ClassVar[list[str]] = ['meta', 'saved_via', 'links', 'db_info']
