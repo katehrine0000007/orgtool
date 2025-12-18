@@ -1,4 +1,5 @@
 from App.Arguments.ArgumentDict import ArgumentDict
+from App.Arguments.ArgumentValues import ArgumentValues
 from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
 from App.Arguments.Assertions.InputNotInValues import InputNotInValues
 from App.Arguments.Objects.Executable import Executable
@@ -7,21 +8,27 @@ from Data.JSON import JSON
 from App.View import View
 from App import app
 
-class Console(View):
+class ConsoleView(View):
     '''
     View that represents CMD. Runs executable from "i"
     '''
 
-    async def implementation(self, i: dict = {}):
+    async def implementation(self, i: ArgumentValues = {}):
         executable = i.get('i')
+
+        await self._object_call(executable, i.get('print_result'), i)
+
+    async def _object_call(self, executable, print_result: bool = True, i: ArgumentValues = {}):
+        assert executable != None, 'not found object'
         assert executable.canBeExecuted(), 'object does not contains execute interface'
+        assert self.canUseObject(executable), 'object cannot be used at this view'
         assert executable.canBeUsedBy(None), 'access denied'
 
         _item = executable()
         _item.integrate(i.values)
         results = await _item.execute(i = i)
 
-        if i.get('print_result') == True:
+        if print_result == True:
             if results == None:
                 self.log('nothing returned', role = ['empty_response', 'view_message'])
             else:
@@ -33,10 +40,10 @@ class Console(View):
         dicts = ArgumentDict(items = [
             Executable(
                 name = 'i',
-                default = 'App.Queue.Run.Run',
+                default = 'App.Queue.Run',
                 assertions = [
                     NotNoneAssertion(),
-                    InputNotInValues(values=['App.Console.Console.Console'])
+                    InputNotInValues(values=['App.Console.ConsoleView', 'App.Console.ConsoleView.ConsoleView'])
                 ]
             ),
             Boolean(

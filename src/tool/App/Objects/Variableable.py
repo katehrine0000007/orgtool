@@ -9,7 +9,7 @@ class Variableable:
     variables: DictList | None = None
 
     def init_vars(self):
-        self.log('init vars')
+        # self.log('init vars')
         self.variables = DictList(items = [])
         for var in self.__class__.getAllVariables():
             self.variables.append(var)

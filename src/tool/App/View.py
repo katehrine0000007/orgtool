@@ -26,3 +26,12 @@ class View(Executable):
 
     def implementation(self, i: dict = {}):
         pass
+
+    def canUseObject(self, obj) -> bool:
+        _allowed = obj.getAllowedViews()
+        if _allowed == None:
+            return True
+
+        for item in _allowed:
+            if item.getClassNameJoined() == self.getClassNameJoined():
+                return True

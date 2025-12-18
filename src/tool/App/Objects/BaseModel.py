@@ -80,6 +80,7 @@ class BaseModel(PydanticBaseModel):
 
         a.b.c.d.d or something
         '''
+
         return cls.getName() + [cls.__name__]
 
     @classmethod
@@ -107,11 +108,12 @@ class BaseModel(PydanticBaseModel):
     def getClassModule(cls) -> str:
         return cls.__module__
 
-    '''
     @classmethod
-    def canBeUsedAt(cls, at: str):
-        return at in cls.getAvailableContexts()
-    '''
+    def getAllowedViews(cls) -> list:
+        '''
+        Get View classes where. If None -> allowed everywhere
+        '''
+        return None
 
     @classmethod
     def mount(cls):

@@ -3,6 +3,7 @@ from pydantic import Field
 from typing import Any
 from pathlib import Path
 from App import app
+from functools import cached_property
 import importlib
 
 class NotAnObjectError(Exception):
@@ -17,6 +18,7 @@ class LoadedObject(Object):
     root: str = Field(default = None)
 
     title: str = None
+    object_name: str = None
     parts: list[str] = None
     _module: Any = None
 
@@ -29,6 +31,7 @@ class LoadedObject(Object):
         _ext = _path.suffix[1:] # its always "py", why moving it lol
 
         self.title = _path.stem
+        self.object_name = self.title
         self.parts = []
         for part in _path.parts:
             if f".{_ext}" in part:
@@ -45,7 +48,10 @@ class LoadedObject(Object):
         return self.parts + [self.title]
 
     def getTitleWithClass(self):
-        return self.parts + [self.title, self.title]
+        if self.title == self.object_name:
+            return self.parts + [self.title]
+
+        return self.parts + [self.title, self.object_name]
 
     def setModule(self, module):
         self._module = module
@@ -82,15 +88,13 @@ class LoadedObject(Object):
 
         module.mount()
 
-    @property
+    @cached_property
     def name(self) -> str:
         '''
         property to get DictList working
         '''
 
         return '.'.join(self.getTitleWithClass())
-        if self._module == None:
-            return '.'.join(self.getTitle())
 
         return self._module.getClassNameJoined()
 
