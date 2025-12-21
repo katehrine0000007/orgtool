@@ -8,8 +8,9 @@ class ConnectionAdapter(Object):
     Adapter for some object store (for example, db)
     '''
 
+    __abstract__ = True
     protocol_name: ClassVar[str] = ''
-    _unserializable = ['_storage_item', '_id_gen', 'ObjectAdapter', 'ObjectLinkAdapter']
+    _unserializable = ['_storage_item', '_id_gen', 'ObjectAdapter', 'LinkAdapter']
 
     protocol: str = Field(default = 'none')
     delimiter: str = Field(default = ':///')
@@ -18,13 +19,16 @@ class ConnectionAdapter(Object):
     _storage_item: Any = None # Storage item DI
     _id_gen: Any = None
     ObjectAdapter: Any = None
-    ObjectLinkAdapter: Any = None
+    LinkAdapter: Any = None
 
     def _set_id_get(self):
         self._id_gen = SnowflakeGenerator(32)
 
     def flush(self, item: Object):
         unit = self.ObjectAdapter()
-        unit.flush(item)
+        unit.toDB(item)
 
         return unit
+
+    def getQuery(self):
+        return self.ObjectAdapter.getQuery()

@@ -41,8 +41,8 @@ class ContentLinksTest(Test):
 
         self.log_error('returning object')
 
-        _json = JSON(data = _item.getObject().to_json(convert_links = 'unwrap'))
+        _json = JSON(data = _item.toPython().to_json(convert_links = 'unwrap'))
 
         self.log_raw(_json.dump(indent = 4))
 
-        return ObjectsList.fromItems([_item.getObject()])
+        return ObjectsList.fromItems([_item.toPython()])

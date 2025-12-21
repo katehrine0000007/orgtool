@@ -10,7 +10,7 @@ class DaemonTest(Test):
         _storage = app.Storage.get('content')
         _item = _storage.adapter.flush(runs)
 
-        _object = _item.getObject()
+        _object = _item.toPython()
         daemon = Daemon(
             item = _object,
             max_iterations = 100

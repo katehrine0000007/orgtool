@@ -9,20 +9,20 @@ class QueueTest(Test):
         args = {
             'prestart': '''
             [{
-            "predicate": "App.Arguments.Types.Int.Int", 
+            "predicate": "App.Arguments.Types.Int", 
             "build": {"name": "random", "current": 0}
             }]
             ''',
             'items': '''
             [{
-                "predicate": "Data.Random.Random",
+                "predicate": "Data.Random",
                 "arguments": {
                     "min": 0,
                     "max": 10000
                 }
             },
             {
-                "predicate": "App.Operations.Equate.Equate",
+                "predicate": "App.Operations.Equate",
                 "arguments": {
                     "equate_this": {
                         "direct_value": "$0"
@@ -35,13 +35,13 @@ class QueueTest(Test):
             'output': '''
             [{
                 "key": "#0",
-                "response": "App.Responses.AnyResponse.AnyResponse"
+                "response": "App.Responses.AnyResponse"
             }]
             '''
         }
         '''
             {
-                "predicate": "App.Storage.DB.Flush.Flush",
+                "predicate": "App.Storage.DB.Save",
                 "arguments": {
                     "object": {
                         "direct_value": "#1"
@@ -49,7 +49,7 @@ class QueueTest(Test):
                 }
             }
             {
-                "name": "Web.URL.URL",
+                "name": "Web.URL",
                 "arguments": {
                     "url": {
                         "value": "",
@@ -60,7 +60,7 @@ class QueueTest(Test):
                 }
             }
                     {
-                "predicate": "Web.URL.URL",
+                "predicate": "Web.URL",
                 "arguments": {
                     "db": "content",
                     "url": {

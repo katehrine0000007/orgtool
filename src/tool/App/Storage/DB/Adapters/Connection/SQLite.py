@@ -1,7 +1,7 @@
-from App.Storage.DB.Adapters.Connection.SQLAlchemyAdapter import SQLAlchemyAdapter
+from App.Storage.DB.Adapters.Connection.SQLAlchemy import SQLAlchemy
 from pydantic import Field
 
-class SQLiteAdapter(SQLAlchemyAdapter):
+class SQLite(SQLAlchemy):
     protocol_name = 'sqlite'
     content: str = Field(default = None)
 

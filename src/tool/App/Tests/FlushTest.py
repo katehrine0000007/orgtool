@@ -16,14 +16,14 @@ class FlushTest(Test):
         self.log(f'we saved object {_id} to id {_item.uuid}')
         self.log(f'getting object from db item')
 
-        self.log_raw(_item.getObject())
-        self.log_raw(_item.getObject().to_json())
+        self.log_raw(_item.toPython())
+        self.log_raw(_item.toPython().to_json())
 
         _lnked = Text(text='888')
         #_lnked.flush(_storage)
 
         try:
-            _item.getObject().link(_lnked, role = ['internal'])
+            _item.toPython().link(_lnked, role = ['internal'])
         except AssertionError as e:
             self.log('assertion error so item not saved')
             raise e

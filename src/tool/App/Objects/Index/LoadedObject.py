@@ -51,6 +51,7 @@ class LoadedObject(Object):
         return self.parts + [self.title]
 
     def getTitleWithClass(self):
+        # to not double
         if self.title == self.object_name:
             return self.parts + [self.title]
 

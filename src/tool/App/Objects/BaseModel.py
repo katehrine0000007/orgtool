@@ -88,12 +88,16 @@ class BaseModel(PydanticBaseModel):
         return ".".join(self.getName())
 
     @classmethod
-    def getClassNameJoined(cls):
+    def getClassNameJoined(cls, last_names_doubling: bool = False):
         '''
         getClassName() but joined
         '''
 
-        return ".".join(cls.getClassName())
+        _name = cls.getClassName()
+        if last_names_doubling == False:
+            _name = _name[:-1]
+
+        return ".".join(_name)
 
     @classmethod
     def getName(self) -> list:

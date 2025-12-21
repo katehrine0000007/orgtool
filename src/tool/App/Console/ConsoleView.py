@@ -29,7 +29,11 @@ class ConsoleView(View):
 
             if print_as != 'json' and isinstance(results, ObjectsList):
                 for item in results.getItems():
-                    self.log_raw(item.displayAs(print_as))
+                    _disp = item.displayAs(print_as)
+                    if item.hasDb():
+                        _disp += f" [{item.getDbId()}]"
+
+                    self.log_raw(_disp)
             else:
                 self.log_raw(JSON(data = results.to_json()).dump(indent = 4))
 

@@ -10,7 +10,7 @@ class Number(Object):
 
         def implementation(self, i):
             _object = i.get('object')
-            return _object.number
+            return str(_object.number)
 
     @classmethod
     def getSubmodules(cls):

@@ -5,6 +5,7 @@ from App.Arguments.ArgumentDict import ArgumentDict
 from App.Arguments.Types.String import String
 from App.Arguments.Types.Int import Int
 from App.Arguments.Objects.Orig import Orig
+from App.Arguments.Objects.List import List
 from App.Arguments.Types.Boolean import Boolean
 from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
 from App.Responses.ObjectsList import ObjectsList
@@ -18,6 +19,10 @@ class Export(Act):
     @classmethod
     def getArguments(cls) -> ArgumentDict:
         return ArgumentDict(items = [
+            Orig(
+                name = 'items',
+                orig = ObjectsList
+            ),
             String(
                 name = 'export_name',
                 default = None

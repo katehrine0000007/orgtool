@@ -48,7 +48,7 @@ class Path(Object):
 
         if len(self.parts) == 0:
             for item in db.ObjectAdapter.getQuery().limit(10):
-                res.append(item.getObject())
+                res.append(item.toPython())
         else:
             end_is_linked = False
             for part in self.parts:
@@ -65,7 +65,7 @@ class Path(Object):
                 if cursor != None:
                     assert cursor.isLinked(_cursor), 'items are not linked'
 
-                cursor = _cursor.getObject()
+                cursor = _cursor.toPython()
 
             if end_is_linked == False:
                 res.supposed_to_be_single = True
