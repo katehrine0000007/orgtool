@@ -27,3 +27,6 @@ class Convertable(BaseModel):
         for displayment_probaly in self.getAllSubmodules(with_role=['displayment']):
             if as_type in displayment_probaly.item.role:
                 return displayment_probaly.item().implementation(i = {'object': self})
+
+        if as_type == 'str':
+            return f"<{self.class_name}>"

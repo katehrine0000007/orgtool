@@ -15,22 +15,24 @@ class InteractiveView(ConsoleView):
 
         while is_exit != True:
             _args_input = input("")
-            _parsed_argv = app.app._parse_argv(_args_input.split(' '))
-            _args = _parsed_argv[0]
-            _i = _args.get('i')
-            if _i == 'App.Console.Exit':
-                is_exit = True
-                break
-            if _i == 'App.Console.Same':
-                _args['i'] = prev
 
             try:
+                _parsed_argv = app.app._parse_argv(_args_input.split(' '))
+                _args = _parsed_argv[0]
+                _i = _args.get('i')
+                if _i == 'App.Console.Exit':
+                    is_exit = True
+                    break
+                if _i == 'App.Console.Same':
+                    _args['i'] = prev
+
                 results = await pre_i.execute(_args)
                 self._print_call(results, i.get('console_view.print_result'), i.get('console_view.print_as'))
+            
+                prev = _i
             except Exception as e:
                 traceback.print_exc()
 
-            prev = _i
             self.log_raw('\n-------\n')
 
         return NoneResponse()
