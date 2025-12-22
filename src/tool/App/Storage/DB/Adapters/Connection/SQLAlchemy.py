@@ -6,6 +6,7 @@ from App.Storage.DB.Adapters.Search.Condition import Condition
 from App.Storage.DB.Adapters.Search.Sort import Sort
 from App.Objects.Object import Object
 from App.Objects.Relations.Link import Link as CommonLink
+from App.Objects.Requirements.Requirement import Requirement
 from typing import Any, Generator
 import json
 
@@ -152,7 +153,15 @@ class SQLAlchemy(ConnectionAdapter):
 
     @classmethod
     def getRequiredModules(cls):
-        return ['sqlalchemy==2.0.44', 'snowflake-id']
+        return [
+            Requirement(
+                name = 'sqlalchemy',
+                version = '2.0.44'
+            ),
+            Requirement(
+                name = 'snowflake-id'
+            )
+        ]
 
     def _constructor(self):
         connection_string = self.protocol_name + self.delimiter + self.getConnectionStringContent()

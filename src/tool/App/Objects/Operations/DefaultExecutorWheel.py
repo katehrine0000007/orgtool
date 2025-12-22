@@ -1,6 +1,7 @@
 from App.Objects.Act import Act
 from App.Arguments.ArgumentDict import ArgumentDict
 from App.Arguments.Objects.Executable import Executable
+from App.Arguments.Objects.List import List
 from App.Arguments.Types.String import String
 from App.Arguments.Types.Boolean import Boolean
 from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
@@ -8,6 +9,8 @@ from App.Arguments.Assertions.InputNotInValues import InputNotInValues
 from App.Arguments.ArgumentValues import ArgumentValues
 from App.Responses.ObjectsList import ObjectsList
 from App.Storage.Movement.Save import Save
+from App.Objects.Locale.Documentation import Documentation
+from App.Objects.Locale.Key import Key
 from App import app
 
 class DefaultExecutorWheel(Act):
@@ -66,21 +69,51 @@ class DefaultExecutorWheel(Act):
                 assertions = [
                     NotNoneAssertion(),
                     InputNotInValues(values=['App.Console.ConsoleView', 'App.Console.ConsoleView.ConsoleView'])
-                ]
+                ],
+                documentation = Documentation(
+                    name = Key(
+                        value = 'Main object'
+                    )
+                ),
             ),
-            String(
-                # Save to
+            List(
                 name = 'save_to',
-                default = None,
+                default = [],
+                documentation = Documentation(
+                    name = Key(
+                        value = 'Save to storages'
+                    ),
+                    description = Key(
+                        value = 'Names of storages where object will be saved (if it returns ObjectsList)'
+                    )
+                ),
+                orig = String(
+                    name = 'save_to.item'
+                )
             ),
             Boolean(
-                # Flushes literally, ignores execution interface
                 name = 'force_flush',
+                documentation = Documentation(
+                    name = Key(
+                        value = 'Flush literally'
+                    ),
+                    description = Key(
+                        value = 'Flush to DB (save_to) ignoring execution interface'
+                    )
+                ),
                 default = False
             ),
             Boolean(
                 name = 'as_args',
-                default = False
+                default = False,
+                documentation = Documentation(
+                    name = Key(
+                        value = 'Use as args'
+                    ),
+                    description = Key(
+                        value = 'Use another passed arguments for args field, if force_flush = true and i is an executable'
+                    )
+                ),
             )
         ],
         missing_args_inclusion = True)

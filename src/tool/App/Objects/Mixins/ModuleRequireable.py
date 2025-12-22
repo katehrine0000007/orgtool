@@ -20,13 +20,10 @@ class ModuleRequireable(BaseModel):
         not_libs = []
 
         for required_module in self.getRequiredModules():
-            module_versions = required_module.split("==")
-            module_name = module_versions[0]
-
-            if module_name in all_installed:
-                satisf_libs.append(module_name)
+            if required_module.name in all_installed:
+                satisf_libs.append(required_module)
             else:
-                not_libs.append(module_name)
+                not_libs.append(required_module)
 
         return not_libs
 

@@ -25,7 +25,7 @@ class InstallRequirements(Act):
         else:
             _pars = [sys.executable, '-m', 'pip', 'install']
             for _module in modules:
-                _pars.append(_module)
+                _pars.append(_module.getName())
 
             subprocess.call(_pars)
 

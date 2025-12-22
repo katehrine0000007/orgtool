@@ -3,6 +3,7 @@ from .Assertions.Assertion import Assertion
 from App.Objects.Object import Object
 from typing import Any, List, Literal, Callable
 from pydantic import Field, computed_field
+from App.Objects.Locale.Documentation import Documentation
 
 class Argument(Object):
     '''
@@ -27,6 +28,7 @@ class Argument(Object):
     auto_apply: bool = Field(default = False)
     assertions: List[Assertion] = Field(default=[])
     role: Literal['config', 'env'] = Field(default=[])
+    documentation: Documentation = Field(default = None)
 
     current: Any = Field(default=None)
 
