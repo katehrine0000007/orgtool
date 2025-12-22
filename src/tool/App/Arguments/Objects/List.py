@@ -7,6 +7,8 @@ class List(Argument):
     '''
 
     orig: Argument = Field(default = None)
+    allow_commas_fallback: bool = Field(default = True)
+    single_recommended: bool = Field(default = False)
     total_count: int = Field(default=0)
 
     def implementation(self, original_value: str):
@@ -19,6 +21,9 @@ class List(Argument):
         if type(original_value) == str:
             if JSON.isStringValidJson(original_value) == True:
                 original_value = JSON.fromText(original_value).data
+            else:
+                if self.allow_commas_fallback:
+                    original_value = original_value.split(',')
 
         if self.orig == None:
             return original_value

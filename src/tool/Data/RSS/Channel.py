@@ -1,7 +1,10 @@
 from App.Objects.Object import Object
 from Data.RSS.ChannelImage import ChannelImage
+from Data.RSS.ChannelItem import ChannelItem
 from pydantic import Field
 from typing import Optional
+from dateutil import parser, tz
+import xml
 
 class Channel(Object):
     title: str = Field(default = None)
@@ -34,3 +37,6 @@ class Channel(Object):
         rss = rss_response.get('rss')
 
         return rss.get('channel')
+
+    def addItem(self, item: dict):
+        return ChannelItem.model_validate(item, by_alias = True)

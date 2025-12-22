@@ -21,10 +21,13 @@ class Save(Act):
                 name = 'items',
                 orig = ObjectsList
             ),
-            # Storage name
-            StorageArgument(
+            List(
                 name = 'storage',
+                single_recommended = True,
                 assertions = [NotNoneAssertion()],
+                orig = StorageArgument(
+                    name = 'storage.item',
+                )
             ),
             List(
                 name = 'link_to',
@@ -40,17 +43,18 @@ class Save(Act):
 
     async def implementation(self, i):
         results = 0
-        storage = i.get('storage')
-        link_to = i.get('link_to')
 
-        assert storage != None, f"storage {storage.name} not found"
-        assert storage.hasAdapter(), f"storage {storage.name} does not contains db connection"
+        for storage in i.get('storage'):
+            link_to = i.get('link_to')
 
-        for item in i.get('items').getItems():
-            item.flush(storage,
-                       link_max_depth = i.get('link_max_depth'))
+            assert storage != None, f"storage {storage.name} not found"
+            assert storage.hasAdapter(), f"storage {storage.name} does not contains db connection"
 
-            self.log(f"flushed item to db {storage.name}, uuid: {item.getDbId()}")
-            results += 1
+            for item in i.get('items').getItems():
+                item.flush(storage,
+                        link_max_depth = i.get('link_max_depth'))
+
+                self.log(f"flushed item to db {storage.name}, uuid: {item.getDbId()}")
+                results += 1
 
         return AnyResponse(data = results)

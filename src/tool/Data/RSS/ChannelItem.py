@@ -8,5 +8,5 @@ class ChannelItem(Object):
     description: str = Field(default = None)
     channel_link: str = Field(default = None, alias = 'link')
     guid: Optional[dict | str] = Field(default = None)
-    pubDate: datetime.datetime | str = Field(default = None)
+    pubDate: datetime.datetime = Field(default = None)
     media_thumbnail: Optional[dict] = Field(alias="media:thumbnail", default = None)

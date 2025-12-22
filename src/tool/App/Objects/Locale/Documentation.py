@@ -1,5 +1,5 @@
 from App.Objects.Mixins.BaseModel import BaseModel
-from App.Objects.Locale.Documentation import Key
+from App.Objects.Locale.Key import Key
 from pydantic import Field
 
 class Documentation(BaseModel):

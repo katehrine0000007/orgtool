@@ -6,10 +6,13 @@ from App.Responses.ObjectsList import ObjectsList
 from Data.RSS.Channel import Channel
 from Data.RSS.ChannelItem import ChannelItem
 from pydantic import Field
+from typing import Optional
+import datetime
 
+# Should it be in Web category or in Data? i dont know
 class GetFeed(Extractor):
-    # Should it be in Web category or in Data? dont know
-    channel: Channel = Field(default = None)
+    channel: Optional[Channel] = Field(default = None)
+    last_time: datetime.datetime = Field(default = 0)
 
     @classmethod
     def getArguments(cls) -> ArgumentDict:
@@ -45,14 +48,16 @@ class GetFeed(Extractor):
         self.link(self.channel)
 
         for item in _channel.get('item'):
-            _item = ChannelItem.model_validate(item, by_alias = True)
-            self.channel.link(_item)
-            self.append(_item)
+            channel_item = self.channel.addItem(item)
+            if channel_item.pubDate.timestamp() > self.last_time:
+                self.last_time = channel_item.pubDate
+
+            self.channel.link(channel_item)
+            self.append(channel_item)
 
     async def sift(self, response: ObjectsList) -> ObjectsList:
         _new = ObjectsList()
         for item in response.getItems():
-            print(item)
             _new.append(item)
 
         return _new

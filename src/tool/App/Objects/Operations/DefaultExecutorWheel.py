@@ -1,9 +1,10 @@
 from App.Objects.Act import Act
+from App.Objects.Executable import Executable
 from App.Arguments.ArgumentDict import ArgumentDict
-from App.Arguments.Objects.Executable import Executable
 from App.Arguments.Objects.List import List
 from App.Arguments.Types.String import String
 from App.Arguments.Types.Boolean import Boolean
+from App.Arguments.Objects.Executable import Executable as ExecutableArg
 from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
 from App.Arguments.Assertions.InputNotInValues import InputNotInValues
 from App.Arguments.ArgumentValues import ArgumentValues
@@ -23,7 +24,6 @@ class DefaultExecutorWheel(Act):
         executable = i.get('i')
 
         assert executable != None, 'not found object'
-
         assert app.app.view.canUseObject(executable), 'object cannot be used at this view'
         assert executable.canBeUsedBy(None), 'access denied'
 
@@ -35,15 +35,14 @@ class DefaultExecutorWheel(Act):
             _item.integrate(i.values)
             results = await _item.execute(i = i)
         else:
-            _vals = i.getValues(exclude = ['force_flush', 'i', 'as_args'])
-            _item = None
+            _vals = i.getValues(exclude = ['force_flush', 'i', 'pre_i', 'as_args'])
             results = ObjectsList(items = [])
+            _item = executable()
 
-            if isinstance(executable, Executable):
-                if i.get('as_args'):
-                    _item = executable(**_vals)
-                else:
-                    _item = executable(args = _vals)
+            # isinstance(executable, Executable wont work with cls (
+
+            if hasattr(executable, 'integrate') and i.get('as_args'):
+                _item = executable(args = _vals)
             else:
                 _item = executable(**_vals)
 
@@ -63,7 +62,7 @@ class DefaultExecutorWheel(Act):
     @classmethod
     def getArguments(cls) -> ArgumentDict:
         return ArgumentDict(items = [
-            Executable(
+            ExecutableArg(
                 name = 'i',
                 # default = 'App.Queue.Run',
                 assertions = [
@@ -79,6 +78,7 @@ class DefaultExecutorWheel(Act):
             List(
                 name = 'save_to',
                 default = [],
+                single_recommended = True,
                 documentation = Documentation(
                     name = Key(
                         value = 'Save to storages'
@@ -105,7 +105,7 @@ class DefaultExecutorWheel(Act):
             ),
             Boolean(
                 name = 'as_args',
-                default = False,
+                default = True,
                 documentation = Documentation(
                     name = Key(
                         value = 'Use as args'

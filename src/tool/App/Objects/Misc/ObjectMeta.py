@@ -27,8 +27,8 @@ class ObjectMeta(BaseModel):
     edited_at: Optional[datetime] = Field(default=None)
 
     @field_serializer('created_at', 'declared_created_at', 'edited_at')
-    def get_timestamp(self, dt: datetime, _info) -> int:
+    def get_timestamp(self, dt: datetime, _info) -> float:
         if dt == None:
             return None
 
-        return int(dt.timestamp())
+        return round(dt.timestamp(), 2)

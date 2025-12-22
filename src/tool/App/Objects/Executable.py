@@ -8,21 +8,15 @@ from App.Logger.LogPrefix import LogPrefix
 from typing import ClassVar, Optional
 from pydantic import Field
 from App import app
-from abc import abstractmethod, ABC
+from abc import abstractmethod
 import asyncio
 
-class Executable(Object, ABC, Siftable, Variableable, Validable):
-    '''
-    Object that has "execute()" interface, single entrypoint.
-    
-    getArguments(): validation
-    '''
-
+class Executable(Object, Siftable, Variableable, Validable):
     id: int = 0
     self_name: ClassVar[str] = 'Executable'
     #internal_use: bool = Field(default = True)
-    args: dict = Field(default = {})
-    _unserializable = ['id', 'variables']
+    args: Optional[dict] = Field(default = {})
+    _unserializable = ['id', 'variables', 'self_name']
 
     @classmethod
     def getClassEventTypes(cls) -> list:
