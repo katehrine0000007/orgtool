@@ -1,4 +1,4 @@
-from App.Objects.Submodule import Submodule
+from App.Objects.Relations.Submodule import Submodule
 
 class Submodulable:
     '''

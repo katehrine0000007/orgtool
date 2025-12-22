@@ -5,7 +5,7 @@ from App.Storage.DB.Adapters.Search.Query import Query
 from App.Storage.DB.Adapters.Search.Condition import Condition
 from App.Storage.DB.Adapters.Search.Sort import Sort
 from App.Objects.Object import Object
-from App.Objects.Link import Link as CommonLink
+from App.Objects.Relations.Link import Link as CommonLink
 from typing import Any, Generator
 import json
 

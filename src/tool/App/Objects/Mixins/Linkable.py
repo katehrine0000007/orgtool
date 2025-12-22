@@ -1,5 +1,5 @@
 from pydantic import Field, model_serializer, BaseModel
-from App.Objects.Link import Link
+from App.Objects.Relations.Link import Link
 from collections import deque
 from typing import ClassVar, Generator
 

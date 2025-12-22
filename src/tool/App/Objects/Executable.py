@@ -1,9 +1,9 @@
 from .Object import Object
-from .Validable import Validable
+from .Mixins.Validable import Validable
 from App.Arguments.ArgumentValues import ArgumentValues
 from App.Responses.Response import Response
-from App.Objects.Variableable import Variableable
-from App.Objects.Siftable import Siftable
+from App.Objects.Mixins.Variableable import Variableable
+from App.Objects.Mixins.Siftable import Siftable
 from App.Logger.LogPrefix import LogPrefix
 from typing import ClassVar, Optional
 from pydantic import Field

@@ -1,6 +1,6 @@
 from App.Objects.Test import Test
 from Data.Text import Text
-from App.Objects.Link import Link
+from App.Objects.Relations.Link import Link
 
 class LinksTest(Test):
     async def implementation(self, i):

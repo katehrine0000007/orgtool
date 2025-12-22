@@ -1,5 +1,5 @@
 from pydantic import BaseModel as PydanticBaseModel, computed_field, model_serializer
-from App.Objects.LinkInsertion import LinkInsertion
+from App.Objects.Misc.LinkInsertion import LinkInsertion
 from typing import Literal, ClassVar
 
 class BaseModel(PydanticBaseModel):

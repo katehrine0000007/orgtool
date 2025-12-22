@@ -2,7 +2,7 @@ from App.Objects.Act import Act
 from App.Arguments.ArgumentDict import ArgumentDict
 from App.Arguments.Objects.List import List
 from App.Arguments.Objects.Orig import Orig
-from App.Objects.DictList import DictList
+from App.Objects.Misc.DictList import DictList
 from .Item import Item
 from .OutputItem import OutputItem
 from .Queue import Queue

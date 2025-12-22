@@ -1,7 +1,7 @@
 from App.Arguments.ArgumentValues import ArgumentValues
 from App.Responses.Response import Response
 from App.Objects.Executable import Executable
-from App.Objects.Submodule import Submodule
+from App.Objects.Relations.Submodule import Submodule
 from App.Arguments.ArgumentDict import ArgumentDict
 
 class Wheel(Executable):

@@ -1,4 +1,4 @@
-from App.Objects.Link import Link
+from App.Objects.Relations.Link import Link
 from typing import Literal
 from pydantic import Field
 

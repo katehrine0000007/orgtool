@@ -1,6 +1,6 @@
 from App.Responses.Response import Response
 from App.Objects.Object import Object
-from App.Objects.Submodule import Submodule
+from App.Objects.Relations.Submodule import Submodule
 from pydantic import Field
 from typing import Generator
 

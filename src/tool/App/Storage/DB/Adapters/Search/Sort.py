@@ -1,4 +1,4 @@
-from App.Objects.BaseModel import BaseModel
+from App.Objects.Mixins.BaseModel import BaseModel
 from .Condition import Condition
 from pydantic import Field
 

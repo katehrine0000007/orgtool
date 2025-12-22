@@ -1,5 +1,5 @@
 from App.Arguments.Argument import Argument
-from App.Objects.DictList import DictList
+from App.Objects.Misc.DictList import DictList
 from pydantic import Field
 from typing import Any
 

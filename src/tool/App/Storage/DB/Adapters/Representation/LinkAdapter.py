@@ -1,4 +1,4 @@
-from App.Objects.Link import Link
+from App.Objects.Relations.Link import Link
 from Data.JSON import JSON
 from abc import abstractmethod
 from App.Storage.DB.Adapters.Representation.AbstractAdapter import AbstractAdapter

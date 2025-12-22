@@ -1,6 +1,6 @@
 from App.Objects.Convertation import Convertation
 from App.Responses.ObjectsList import ObjectsList
-from App.Objects.Submodule import Submodule
+from App.Objects.Relations.Submodule import Submodule
 from Data.JSON import JSON
 from Data.XML import XML
 import xmltodict

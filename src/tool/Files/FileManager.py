@@ -1,6 +1,6 @@
 from Files.Navigate import Navigate
 from App.Objects.Client import Client
-from App.Objects.Submodule import Submodule
+from App.Objects.Relations.Submodule import Submodule
 from Files.Dir import Dir
 from Files.File import File
 from App import app

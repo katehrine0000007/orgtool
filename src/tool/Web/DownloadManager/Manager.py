@@ -3,7 +3,7 @@ from Web.DownloadManager.Item import Item as DownloadManagerItem
 from Web.HTTP.Headers import Headers
 from pydantic import Field
 from typing import Type
-from App.Objects.Increment import Increment
+from App.Objects.Misc.Increment import Increment
 import asyncio#, aiohttp
 
 class Manager(Object):

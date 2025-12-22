@@ -1,6 +1,6 @@
 from App.Objects.Object import Object
 from pydantic import Field
-from App.Objects.Submodule import Submodule
+from App.Objects.Relations.Submodule import Submodule
 
 class XML(Object):
     # Using JSON to store XML string, huh?

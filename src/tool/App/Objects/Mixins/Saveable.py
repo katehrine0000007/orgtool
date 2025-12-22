@@ -1,5 +1,5 @@
-from .ObjectMeta import ObjectMeta
-from .SavedVia import SavedVia
+from ..Misc.ObjectMeta import ObjectMeta
+from ..Misc.SavedVia import SavedVia
 from typing import ClassVar
 from pydantic import Field, model_validator
 
