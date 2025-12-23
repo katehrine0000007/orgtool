@@ -1,7 +1,8 @@
 from App.Objects.Executable import Executable
-from App.Arguments.Types.String import String
 from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
 from App.Arguments.ArgumentDict import ArgumentDict
+from App.Arguments.Argument import Argument
+from Data.String import String
 
 from App.Storage.VirtualPath.Path import Path as VirtualPath
 
@@ -9,9 +10,10 @@ class Navigate(Executable):
     @classmethod
     def getArguments(cls) -> ArgumentDict:
         return ArgumentDict(items = [
-            String(
+            Argument(
                 name = 'path',
-                assertions = [NotNoneAssertion()]
+                assertions = [NotNoneAssertion()],
+                orig = String
             )
         ])
 

@@ -2,11 +2,10 @@ from App.Objects.Act import Act
 from datetime import datetime
 from App.Storage.StorageItem import StorageItem
 from App.Arguments.ArgumentDict import ArgumentDict
-from App.Arguments.Types.String import String
-from App.Arguments.Types.Int import Int
-from App.Arguments.Objects.Orig import Orig
-from App.Arguments.Objects.List import List
-from App.Arguments.Types.Boolean import Boolean
+from App.Arguments.Argument import Argument
+from Data.String import String
+from Data.Int import Int
+from Data.Boolean import Boolean
 from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
 from App.Responses.ObjectsList import ObjectsList
 from App.Responses.AnyResponse import AnyResponse
@@ -19,25 +18,29 @@ class Export(Act):
     @classmethod
     def getArguments(cls) -> ArgumentDict:
         return ArgumentDict(items = [
-            Orig(
+            Argument(
                 name = 'items',
                 orig = ObjectsList
             ),
-            String(
+            Argument(
                 name = 'export_name',
-                default = None
+                default = None,
+                orig = String
             ),
-            String(
+            Argument(
                 name = 'dir',
-                assertions = [NotNoneAssertion()]
+                assertions = [NotNoneAssertion()],
+                orig = String
             ),
-            Boolean(
+            Argument(
                 name = 'as_zip',
-                default = False
+                default = False,
+                orig = Boolean
             ),
-            Int(
+            Argument(
                 name = 'link_max_depth',
-                default = 10 # TODO move to const
+                default = 10, # TODO move to const
+                orig = Int
             )
         ])
 

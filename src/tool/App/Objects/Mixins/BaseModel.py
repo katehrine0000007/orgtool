@@ -1,6 +1,6 @@
 from pydantic import BaseModel as PydanticBaseModel, computed_field, model_serializer
 from App.Objects.Misc.LinkInsertion import LinkInsertion
-from typing import Literal, ClassVar
+from typing import Literal, ClassVar, Any
 
 class BaseModel(PydanticBaseModel):
     '''
@@ -64,6 +64,13 @@ class BaseModel(PydanticBaseModel):
                 exclude_none = exclude_none)
 
         return results
+
+    @classmethod
+    def asArgument(cls, val: Any):
+        if isinstance(val, cls):
+            return val
+
+        return cls.model_validate(val)
 
     @classmethod
     def getMRO(cls) -> list:

@@ -1,7 +1,7 @@
 from App.Objects.Extractor import Extractor
-from App.Arguments.Types.Int import Int
+from App.Arguments.Argument import Argument
 from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
-from Data.Number import Number
+from Data.Int import Int
 from App.Arguments.ArgumentDict import ArgumentDict
 import random
 
@@ -9,16 +9,18 @@ class Random(Extractor):
     @classmethod
     def getArguments(cls):
         return ArgumentDict(items=[
-            Int(
+            Argument(
                 name = "min",
                 default = 0,
+                orig = Int,
                 assertions = [
                     NotNoneAssertion()
                 ]
             ),
-            Int(
+            Argument(
                 name = "max",
                 default = 100,
+                orig = Int,
                 assertions = [
                     NotNoneAssertion()
                 ]
@@ -26,8 +28,8 @@ class Random(Extractor):
         ])
 
     async def implementation(self, i) -> None:
-        objects = Number()
-        objects.number = self.randomInt(i.get('min'), i.get('max'))
+        objects = Int()
+        objects.value = self.randomInt(i.get('min'), i.get('max'))
 
         self.append(objects)
 

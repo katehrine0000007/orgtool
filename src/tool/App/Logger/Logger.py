@@ -1,6 +1,8 @@
 from App.Objects.Object import Object
 from App.Console.PrintLog import PrintLog
 from App.Logger.HideCategory import HideCategory
+from App.Arguments.Argument import Argument
+from Data.Boolean import Boolean
 from .Log import Log
 from .LogFile import LogFile
 from .LogSection import LogSection
@@ -98,57 +100,31 @@ class Logger(Object):
 
     @classmethod
     def getSettings(cls):
-        from App.Arguments.Objects.List import List
-        from App.Arguments.Types.Boolean import Boolean
-        from App.Arguments.Objects.Orig import Orig
-
-        '''
-        to shut up all messages:
-
-        [
-            {
-                "section": [],
-                "wildcard": true,
-                "role": ["message"],
-                "where": ["console"]
-            }
-        ],
-
-        i recomend:
-
-        [
-            {
-                "section": ["App", "Objects", "Index", "LoadedObject"]
-            },
-            {
-                "section": ["Wrap"]
-            }
-        ]
-        '''
-
         return [
-            List(
+            Argument(
                 name = 'logger.print.exclude',
                 default = [],
-                orig = Orig(
-                    name = 'logger.hide_section',
-                    orig = HideCategory
-                )
+                is_multiple = True,
+                orig = HideCategory
             ),
-            Boolean(
+            Argument(
                 name = 'logger.print.file',
-                default = False
+                default = False,
+                orig = Boolean
             ),
-            Boolean(
+            Argument(
                 name = 'logger.print.console',
-                default = True
+                default = True,
+                orig = Boolean
             ),
-            Boolean(
+            Argument(
                 name = 'logger.print.console.show_role',
-                default = False
+                default = False,
+                orig = Boolean
             ),
-            Boolean(
+            Argument(
                 name = 'logger.print.console.show_time',
-                default = True
+                default = True,
+                orig = Boolean
             )
         ]

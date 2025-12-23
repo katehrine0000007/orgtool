@@ -9,7 +9,7 @@ class QueueTest(Test):
         args = {
             'prestart': '''
             [{
-            "predicate": "App.Arguments.Types.Int", 
+            "predicate": "Data.Int", 
             "build": {"name": "random", "current": 0}
             }]
             ''',
@@ -28,7 +28,7 @@ class QueueTest(Test):
                         "direct_value": "$0"
                     },
                     "to": {
-                        "direct_value": "#0.items.0.number"
+                        "direct_value": "#0.items.0.value"
                     }
                 }
             }]''',

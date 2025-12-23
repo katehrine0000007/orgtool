@@ -1,7 +1,7 @@
 from App.Objects.Executable import Executable
 from App.Responses.ObjectsList import ObjectsList
 from App.Arguments.ArgumentDict import ArgumentDict
-from App.Arguments.Objects.Orig import Orig
+from App.Arguments.Argument import Argument
 from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
 
 class Convertation(Executable):
@@ -20,7 +20,7 @@ class Convertation(Executable):
     @classmethod
     def getArguments(cls) -> ArgumentDict:
         return ArgumentDict(items=[
-            Orig(
+            Argument(
                 name = "orig",
                 #orig = cls.getCommonObject(),
                 # Unsolvable bug. getCommonObject() gets "Convertation" submodules and returns nothing. So you can pass everything here

@@ -1,34 +1,37 @@
 from App.Objects.Act import Act
+from Data.Int import Int
+from Data.String import String
+from Data.Int import Int
 from App.Arguments.ArgumentDict import ArgumentDict
-from App.Arguments.Objects.Literal import Literal
-from App.Arguments.Objects.List import List
-from App.Arguments.Types.String import String
-from App.Arguments.Types.Int import Int
-from App.Storage.Storage import StorageArgument
+from App.Arguments.Argument import Argument
 from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
 from App.Responses.AnyResponse import AnyResponse
+from App.Storage.StorageItem import StorageItem
 
 class Link(Act):
     @classmethod
     def getArguments(cls):
         return ArgumentDict(items = [
-            StorageArgument(
+            Argument(
                 name = 'storage',
+                orig = StorageItem,
                 assertions = [NotNoneAssertion()]
             ),
-            Int(
+            Argument(
                 name = 'owner',
+                orig = Int,
                 assertions = [NotNoneAssertion()]
             ),
-            List(
+            Argument(
                 name = 'items',
+                orig = Int,
                 assertions = [NotNoneAssertion()],
                 orig = Int(
                     name = 'item'
                 ),
                 default = []
             ),
-            Literal(
+            Argument(
                 name = 'act',
                 default = 'link',
                 values = [

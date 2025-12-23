@@ -69,12 +69,13 @@ class ArgumentValues(Object):
                 return default
 
         fallback = argument.sensitive_default
-        value = argument.getValue(original_value = inputs, sets_current = True)
+        value = argument.getValue(original_value = inputs)
         if value == None and self.default_on_none == True:
             value = fallback
 
         if self.check_assertions == True:
             try:
+                argument.inputs = inputs
                 argument.current = value
                 argument.checkAssertions()
             except Exception as assertion:

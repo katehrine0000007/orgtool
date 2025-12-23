@@ -1,19 +1,8 @@
 from App.Objects.Object import Object
-from App.Arguments.Objects.Orig import Orig
+from App.Arguments.Argument import Argument
 from App.Storage.StorageItem import StorageItem
 from pydantic import Field
 from App import app
-
-class StorageArgument(Orig):
-    def constructor(self):
-        def _on_string(val: str):
-            return app.Storage.get(val)
-
-        super().constructor()
-
-        self.orig = StorageItem
-        self.on_string = _on_string
-        self.on_string_format = '{name}'
 
 class Storage(Object):
     '''
@@ -68,16 +57,11 @@ class Storage(Object):
 
     @classmethod
     def getSettings(cls):
-        from App.Arguments.Objects.List import List
-        from App.Arguments.Objects.Orig import Orig
-
         return [
-            List(
+            Argument(
                 name = 'storage.dbs',
                 default = [],
-                orig = Orig(
-                    name = 'storage.dbs.db',
-                    orig = StorageItem
-                )
+                is_multiple = True,
+                orig = StorageItem
             )
         ]

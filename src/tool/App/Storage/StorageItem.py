@@ -78,3 +78,10 @@ class StorageItem(Object):
                 item._constructor()
 
                 return item
+
+    @classmethod
+    def asArgument(cls, val: str):
+        if type(val) == str:
+            return app.Storage.get(val)
+
+        return super().asArgument(val)

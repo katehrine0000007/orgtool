@@ -1,15 +1,17 @@
 from App.Objects.Act import Act
 from App.Arguments.ArgumentDict import ArgumentDict
 from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
-from App.Arguments.Objects.Executable import Executable
+from App.Arguments.Argument import Argument
+from App.Objects.Executable import Executable
 from App.Responses.AnyResponse import AnyResponse
 
 class InstallRequirements(Act):
     @classmethod
     def getArguments(cls):
         return ArgumentDict(items=[
-            Executable(
+            Argument(
                 name = 'object',
+                orig = Executable,
                 assertions = [NotNoneAssertion()]
             )
         ])

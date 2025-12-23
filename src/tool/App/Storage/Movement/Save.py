@@ -1,12 +1,11 @@
 from App.Objects.Act import Act
 from App.Arguments.ArgumentDict import ArgumentDict
-from App.Arguments.Objects.Orig import Orig
-from App.Arguments.Objects.List import List
-from App.Arguments.Types.Int import Int
+from App.Arguments.Argument import Argument
+from Data.Int import Int
 from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
 from App.Responses.ObjectsList import ObjectsList
 from App.Responses.AnyResponse import AnyResponse
-from App.Storage.Storage import StorageArgument
+from App.Storage.StorageItem import StorageItem
 from App import app
 
 class Save(Act):
@@ -17,26 +16,23 @@ class Save(Act):
     @classmethod
     def getArguments(cls) -> ArgumentDict:
         return ArgumentDict(items = [
-            Orig(
+            Argument(
                 name = 'items',
                 orig = ObjectsList
             ),
-            List(
+            Argument(
                 name = 'storage',
-                single_recommended = True,
+                is_multiple = True,
                 assertions = [NotNoneAssertion()],
-                orig = StorageArgument(
-                    name = 'storage.item',
-                )
+                orig = StorageItem
             ),
-            List(
+            Argument(
                 name = 'link_to',
-                orig = Int(
-                    name = 'link_item'
-                )
+                orig = Int
             ),
-            Int(
+            Argument(
                 name = 'link_max_depth',
+                orig = Int,
                 default = 10 # TODO move to const
             )
         ])

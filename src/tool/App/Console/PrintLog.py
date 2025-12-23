@@ -1,7 +1,7 @@
 from App.Objects.Executable import Executable
 from App.Arguments.ArgumentDict import ArgumentDict
 from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
-from App.Arguments.Objects.Orig import Orig
+from App.Arguments.Argument import Argument
 from App.Logger.Log import Log
 from App import app
 
@@ -9,7 +9,7 @@ class PrintLog(Executable):
     @classmethod
     def getArguments(cls):
         return ArgumentDict(items=[
-            Orig(
+            Argument(
                 name = 'log',
                 orig = Log,
                 assertions = [NotNoneAssertion()]

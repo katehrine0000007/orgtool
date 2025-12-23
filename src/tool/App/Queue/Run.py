@@ -1,8 +1,6 @@
 from App.Objects.Act import Act
 from App.Arguments.ArgumentDict import ArgumentDict
-from App.Arguments.Objects.List import List
-from App.Arguments.Objects.Orig import Orig
-from App.Objects.Misc.DictList import DictList
+from App.Arguments.Argument import Argument
 from .Item import Item
 from .OutputItem import OutputItem
 from .Queue import Queue
@@ -16,26 +14,20 @@ class Run(Act):
     @classmethod
     def getArguments(cls) -> ArgumentDict:
         return ArgumentDict(items=[
-            List(
+            Argument(
                 name = 'prestart',
-                orig = Orig(
-                    name = 'prestart_item',
-                    orig = Item
-                )
+                is_multiple = True,
+                orig = Item
             ),
-            List(
+            Argument(
                 name = 'items',
-                orig = Orig(
-                    name = 'items_item',
-                    orig = Item
-                )
+                is_multiple = True,
+                orig = Item
             ),
-            List(
+            Argument(
                 name = 'output',
-                orig = Orig(
-                    name = 'output_item',
-                    orig = OutputItem
-                )
+                is_multiple = True,
+                orig = OutputItem
             )
         ])
 

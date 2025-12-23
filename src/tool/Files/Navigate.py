@@ -1,6 +1,7 @@
 from App.Objects.Act import Act
 from App.Arguments.ArgumentDict import ArgumentDict
-from App.Arguments.Types.String import String
+from App.Arguments.Argument import Argument
+from Data.String import String
 from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
 from App.Responses.AnyResponse import AnyResponse
 from pathlib import Path
@@ -11,11 +12,12 @@ class Navigate(Act):
     @classmethod
     def getArguments(cls) -> ArgumentDict:
         return ArgumentDict(items=[
-            String(
+            Argument(
                 name = 'path',
                 assertions = [
                     NotNoneAssertion()
-                ]
+                ],
+                orig = String
             )
         ])
 

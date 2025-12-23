@@ -23,7 +23,7 @@ class SearchTest(Test):
                 Condition(
                     val1 = 'content',
                     operator = '==',
-                    val2 = 'Data.Number',
+                    val2 = 'Data.Int',
                     json_fields = '$.obj.saved_via.object_name'
                 )
             ],

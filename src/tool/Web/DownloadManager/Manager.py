@@ -1,9 +1,12 @@
 from App.Objects.Object import Object
+from App.Objects.Misc.Increment import Increment
+from App.Arguments.Argument import Argument
 from Web.DownloadManager.Item import Item as DownloadManagerItem
 from Web.HTTP.Headers import Headers
+from Data.Int import Int
+from Data.String import String
 from pydantic import Field
 from typing import Type
-from App.Objects.Misc.Increment import Increment
 import asyncio#, aiohttp
 
 class Manager(Object):
@@ -57,24 +60,25 @@ class Manager(Object):
 
     @classmethod
     def getSettings(cls):
-        from App.Arguments.Types.Int import Int
-        from App.Arguments.Types.String import String
-
         return [
-            Int(
+            Argument(
                 name = "download_manager.max_concurrent_downloads",
                 default = 3,
+                orig = Int
             ),
-            Int(
+            Argument(
                 name = "download_manager.max_kbps_speed",
                 default = 2000,
+                orig = Int
             ),
-            Int(
+            Argument(
                 name = "download_manager.timeout_seconds",
-                default = 100
+                default = 100,
+                orig = Int
             ),
-            String(
+            Argument(
                 name = "download_manager.user_agent",
-                default = ""
+                default = "",
+                orig = String
             ),
         ]

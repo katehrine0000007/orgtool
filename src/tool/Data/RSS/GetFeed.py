@@ -1,6 +1,7 @@
 from App.Objects.Extractor import Extractor
 from App.Arguments.ArgumentDict import ArgumentDict
-from App.Arguments.Types.String import String
+from App.Arguments.Argument import Argument
+from Data.String import String
 from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
 from App.Responses.ObjectsList import ObjectsList
 from Data.RSS.Channel import Channel
@@ -17,8 +18,9 @@ class GetFeed(Extractor):
     @classmethod
     def getArguments(cls) -> ArgumentDict:
         return ArgumentDict(items = [
-            String(
+            Argument(
                 name = 'url',
+                orig = String,
                 assertions = [NotNoneAssertion()]
             )
         ])
@@ -55,7 +57,7 @@ class GetFeed(Extractor):
             self.channel.link(channel_item)
             self.append(channel_item)
 
-    async def sift(self, response: ObjectsList) -> ObjectsList:
+    async def update(self, response: ObjectsList) -> ObjectsList:
         _new = ObjectsList()
         for item in response.getItems():
             _new.append(item)

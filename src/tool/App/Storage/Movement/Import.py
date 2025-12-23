@@ -1,7 +1,8 @@
 from App.Objects.Executable import Executable
 from App.Arguments.ArgumentDict import ArgumentDict
-from App.Arguments.Types.String import String
-from App.Arguments.Types.Boolean import Boolean
+from App.Arguments.Argument import Argument
+from Data.String import String
+from Data.Boolean import Boolean
 from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
 from App.Storage.StorageItem import StorageItem
 from App.Responses.AnyResponse import AnyResponse
@@ -16,18 +17,21 @@ class Import(Executable):
     @classmethod
     def getArguments(cls) -> ArgumentDict:
         return ArgumentDict(items = [
-            String(
+            Argument(
                 name = 'path',
                 assertions = [NotNoneAssertion()],
-                default = None
+                default = None,
+                orig = String
             ),
-            String(
+            Argument(
                 name = 'mount_name',
-                default = None
+                default = None,
+                orig = String
             ),
-            Boolean(
+            Argument(
                 name = 'as_zip',
-                default = False
+                default = False,
+                orig = Boolean
             )
         ])
 

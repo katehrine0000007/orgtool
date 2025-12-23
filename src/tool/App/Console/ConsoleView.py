@@ -1,12 +1,12 @@
 from App.Arguments.ArgumentDict import ArgumentDict
 from App.Arguments.ArgumentValues import ArgumentValues
 from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
-from App.Arguments.Assertions.InputNotInValues import InputNotInValues
-from App.Arguments.Objects.Executable import Executable
-from App.Arguments.Types.Boolean import Boolean
-from App.Arguments.Types.String import String
+from App.Arguments.Argument import Argument
+from App.Objects.Executable import Executable
 from App.Responses.ObjectsList import ObjectsList
 from Data.JSON import JSON
+from Data.Boolean import Boolean
+from Data.String import String
 from App.Objects.View import View
 from App import app
 
@@ -35,24 +35,25 @@ class ConsoleView(View):
 
     @classmethod
     def getArguments(cls) -> ArgumentDict:
-        dicts = ArgumentDict(items = [
-            Executable(
+        return ArgumentDict(items = [
+            Argument(
                 name = 'pre_i',
+                orig = Executable,
                 default = 'App.Objects.Operations.DefaultExecutorWheel',
                 assertions = [
                     NotNoneAssertion()
                 ]
             ),
-            Boolean(
+            Argument(
                 name = 'console_view.print_result',
+                orig = Boolean,
                 default = True
             ),
-            String(
+            Argument(
                 name = 'console_view.print_as',
+                orig = String,
                 default = 'str'
             )
         ],
             missing_args_inclusion = True
         )
-
-        return dicts

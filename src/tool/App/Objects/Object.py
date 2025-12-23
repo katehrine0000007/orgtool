@@ -12,6 +12,7 @@ from App.Storage.DB.DBInsertable import DBInsertable
 from App.Daemons.Daemonable import Daemonable
 from typing import ClassVar
 from pydantic import ConfigDict
+from App import app
 
 class Object(BaseModel, Linkable, Saveable, ModuleRequireable, Section, Submodulable, Hookable, Configurable, Convertable, DBInsertable, Daemonable, Limitable):
     '''
@@ -20,3 +21,14 @@ class Object(BaseModel, Linkable, Saveable, ModuleRequireable, Section, Submodul
 
     model_config = ConfigDict(extra='allow')
     self_name: ClassVar[str] = 'Object'
+
+    @classmethod
+    def asArgument(cls, val: str) -> BaseModel:
+        if type(val) == str:
+            _val = app.ObjectsList.getByName(key = val)
+            if _val == None:
+                return None
+
+            return _val.getModule()
+
+        return super().asArgument(val)

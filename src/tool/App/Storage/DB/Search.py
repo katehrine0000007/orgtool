@@ -1,39 +1,37 @@
 from App.Objects.Act import Act
 from App.Arguments.ArgumentDict import ArgumentDict
 from App.Responses.ObjectsList import ObjectsList
-from App.Storage.Storage import StorageArgument
 from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
-from App.Arguments.Objects.Orig import Orig
-from App.Arguments.Objects.List import List
-from App.Arguments.Types.Int import Int
+from App.Arguments.Argument import Argument
+from Data.Int import Int
 from App.Storage.DB.Adapters.Search.Condition import Condition
+from App.Storage.StorageItem import StorageItem
 
 class Search(Act):
     @classmethod
     def getArguments(cls) -> ArgumentDict:
         return ArgumentDict(items = [
-            StorageArgument(
+            Argument(
                 name = 'storage',
+                orig = StorageItem,
                 assertions = [NotNoneAssertion()]
             ),
-            List(
+            Argument(
                 name = 'conditions',
                 default = [],
-                orig = Orig(
-                    name = 'condition',
-                    orig = Condition
-                )
+                is_multiple = True,
+                orig = Condition
             ),
-            Int(
+            Argument(
                 name = 'limit',
+                orig = Int,
                 default = -1
             ),
-            List(
+            Argument(
                 name = 'linked_to',
+                is_multiple = True,
                 default = [],
-                orig = Int(
-                    name = 'linked_to_item',
-                )
+                orig = Int
             )
         ])
 

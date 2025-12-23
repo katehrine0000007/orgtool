@@ -2,6 +2,8 @@ from App.Objects.Misc.DictList import DictList
 from App.Objects.Object import Object
 from App.Objects.Index.LoadedObject import LoadedObject
 from App.Objects.Index.Namespace import Namespace
+from App.Arguments.Argument import Argument
+from Data.String import String
 from typing import Generator
 from App import app
 from pydantic import Field
@@ -76,20 +78,17 @@ class ObjectsList(Object):
 
     @classmethod
     def getSettings(cls):
-        from App.Arguments.Objects.List import List
-        from App.Arguments.Objects.Orig import Orig
-
         return [
-            List(
+            Argument(
                 name = 'objects.index.namespaces',
                 default = [],
-                orig = Orig(
-                    name = 'objects.index.namespace',
-                    orig = Namespace
-                )
+                is_multiple = True,
+                orig = Namespace
             ),
-            List(
+            Argument(
                 name = 'objects.index.namespaces.current',
                 default = ['common'],
+                is_multiple = True,
+                orig = String
             )
         ]

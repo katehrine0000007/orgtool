@@ -10,7 +10,7 @@ class InteractiveView(ConsoleView):
 
         is_exit = False
         prev = None
-    
+
         self.log("pass arguments (-i App.Console.Exit to exit)")
 
         while is_exit != True:
@@ -28,7 +28,7 @@ class InteractiveView(ConsoleView):
 
                 results = await pre_i.execute(_args)
                 self._print_call(results, i.get('console_view.print_result'), i.get('console_view.print_as'))
-            
+
                 prev = _i
             except Exception as e:
                 traceback.print_exc()

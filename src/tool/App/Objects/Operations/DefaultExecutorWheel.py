@@ -1,13 +1,13 @@
 from App.Objects.Act import Act
 from App.Objects.Executable import Executable
+from App.Objects.Object import Object
 from App.Arguments.ArgumentDict import ArgumentDict
-from App.Arguments.Objects.List import List
-from App.Arguments.Types.String import String
-from App.Arguments.Types.Boolean import Boolean
-from App.Arguments.Objects.Executable import Executable as ExecutableArg
+from App.Arguments.Argument import Argument
 from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
 from App.Arguments.Assertions.InputNotInValues import InputNotInValues
 from App.Arguments.ArgumentValues import ArgumentValues
+from Data.String import String
+from Data.Boolean import Boolean
 from App.Responses.ObjectsList import ObjectsList
 from App.Storage.Movement.Save import Save
 from App.Objects.Locale.Documentation import Documentation
@@ -62,9 +62,10 @@ class DefaultExecutorWheel(Act):
     @classmethod
     def getArguments(cls) -> ArgumentDict:
         return ArgumentDict(items = [
-            ExecutableArg(
+            Argument(
                 name = 'i',
                 # default = 'App.Queue.Run',
+                orig = Object,
                 assertions = [
                     NotNoneAssertion(),
                     InputNotInValues(values=['App.Console.ConsoleView', 'App.Console.ConsoleView.ConsoleView'])
@@ -75,9 +76,10 @@ class DefaultExecutorWheel(Act):
                     )
                 ),
             ),
-            List(
+            Argument(
                 name = 'save_to',
                 default = [],
+                is_multiple = True,
                 single_recommended = True,
                 documentation = Documentation(
                     name = Key(
@@ -87,12 +89,11 @@ class DefaultExecutorWheel(Act):
                         value = 'Names of storages where object will be saved (if it returns ObjectsList)'
                     )
                 ),
-                orig = String(
-                    name = 'save_to.item'
-                )
+                orig = String
             ),
-            Boolean(
+            Argument(
                 name = 'force_flush',
+                orig = Boolean,
                 documentation = Documentation(
                     name = Key(
                         value = 'Flush literally'
@@ -103,8 +104,9 @@ class DefaultExecutorWheel(Act):
                 ),
                 default = False
             ),
-            Boolean(
+            Argument(
                 name = 'as_args',
+                orig = Boolean,
                 default = True,
                 documentation = Documentation(
                     name = Key(

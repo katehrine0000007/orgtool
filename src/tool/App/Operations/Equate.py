@@ -1,16 +1,16 @@
 from App.Objects.Act import Act
 from App.Objects.Misc.DictList import DictList
 from App.Arguments.ArgumentDict import ArgumentDict
-from App.Arguments.Objects.Same import Same
+from App.Arguments.Argument import Argument
 
 class Equate(Act):
     @classmethod
     def getArguments(cls) -> ArgumentDict:
         return ArgumentDict(items=[
-            Same(
+            Argument(
                 name = 'equate_this'
             ),
-            Same(
+            Argument(
                 name = 'to'
             )
         ])

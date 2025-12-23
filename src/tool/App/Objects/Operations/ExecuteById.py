@@ -1,8 +1,9 @@
 from App.Objects.Act import Act
 from App.Arguments.ArgumentDict import ArgumentDict
-from App.Arguments.Types.Int import Int
-from App.Arguments.Types.Boolean import Boolean
-from App.Storage.Storage import StorageArgument
+from App.Arguments.Argument import Argument
+from Data.Int import Int
+from Data.Boolean import Boolean
+from App.Storage.StorageItem import StorageItem
 from App.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
 from App.Responses.ObjectsList import ObjectsList
 
@@ -10,21 +11,25 @@ class ExecuteById(Act):
     @classmethod
     def getArguments(cls) -> ArgumentDict:
         return ArgumentDict(items = [
-            StorageArgument(
+            Argument(
                 name = 'storage',
+                orig = StorageItem,
                 assertions = [NotNoneAssertion()]
             ),
-            Int(
+            Argument(
                 name = 'uuid',
+                orig = Int,
                 assertions = [NotNoneAssertion()]
             ),
-            Boolean(
+            Argument(
                 name = 'link',
-                default = True
+                default = True,
+                orig = Boolean
             ),
-            Boolean(
+            Argument(
                 name = 'sift',
-                default = True
+                default = True,
+                orig = Boolean
             )
         ])
 
@@ -45,7 +50,7 @@ class ExecuteById(Act):
         _res = await _exec.execute(i = _args)
 
         if i.get('sift') == True:
-            _res = await _exec.sift(_old, _res)
+            _res = await _exec.update(_old, _res)
 
         obj.flush_content(_exec)
         if isinstance(_res, ObjectsList):
