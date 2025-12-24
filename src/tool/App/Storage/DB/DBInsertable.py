@@ -59,6 +59,11 @@ class DBInsertable():
         # Gets linked items from links list, _db is not set yet
         if flush_linked == True and link_current_depth < link_max_depth:
             for link in self.getLinkedItems():
+                if link.item.hasDb():
+                    self.log('flush, links: the link item is already flushed')
+
+                    continue
+
                 link.item.flush(into,
                                 link_current_depth,
                                 link_max_depth)

@@ -25,6 +25,8 @@ class Linkable(BaseModel):
 
     def addLink(self, link: Link) -> Link:
         if self.getDb() != None:
+            self.log('addLink: current item is flushed, so we will flush link item')
+
             link.item.flush(self.getDb()._adapter._storage_item)
             self.getDb().addLink(link)
 
