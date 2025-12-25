@@ -12,7 +12,7 @@ from App.ACL.Limitable import Limitable
 from App.Storage.DB.DBInsertable import DBInsertable
 from App.Daemons.Daemonable import Daemonable
 from typing import ClassVar
-from datetime import datetime
+from pydantic import ConfigDict
 from App import app
 
 class Object(BaseModel, 
@@ -45,5 +45,4 @@ class Object(BaseModel,
 
         return super().asArgument(val)
 
-    class Config:
-        extra = 'allow'
+    model_config = ConfigDict(extra='allow')

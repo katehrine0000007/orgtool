@@ -1,109 +1,58 @@
 from App.Objects.Object import Object
-from App.Objects.Arguments.ArgumentDict import ArgumentDict
 from App.Objects.Arguments.ArgumentValues import ArgumentValues
+from App.Objects.Arguments.ListArgument import ListArgument
+from App.Storage.ConfigItem import ConfigItem
+
 from pathlib import Path
 from pydantic import Field
+from typing import Literal
 from App import app
-import json
 
 class Config(Object):
-    path: Path = Field()
-    name: str = Field(default='config.json')
-    values: ArgumentValues = None
-
-    def constructor(self):
-        self.values = ArgumentValues(
-            compare = ArgumentDict(items=[]),
-            values = {},
-            raise_on_assertions = False,
-            default_on_none = True,
-            missing_args_inclusion = True
-        )
-
-    def appendSettingsOfModule(self, module) -> None:
-        _settings = module.getSettings()
-        if _settings != None:
-            for item in _settings:
-                self.values.compare.append(item)
-
-    @property
-    def file(self) -> Path:
-        return self.path.joinpath(self.name)
+    items: list[ConfigItem] = Field(default = [])
+    common: int = 0
+    common_env: int = 1
 
     @classmethod
     def mount(cls):
-        configs = cls(
-            path = app.app.storage.joinpath("config")
-        )
-        configs.checkFile()
-        configs.appendSettingsOfModule(cls)
-        configs.values.values.update(app.app.conf_override)
+        _pre = [
+            ConfigItem(
+                path = app.app.storage.joinpath("config"),
+                role = 'config',
+                name = 'config.json',
+            ),
+            ConfigItem(
+                path = app.app.storage.joinpath("config"),
+                role = 'env',
+                name = 'env.json'
+            )
+        ]
+        _pre[0].append_settings_of_module(cls)
 
-        app.mount('Config', configs)
+        config_switcher = cls()
+        app.mount('Config', config_switcher)
 
-        env = Config(
-            path = app.app.storage.joinpath("config"),
-            name = 'env.json'
-        )
-        env.checkFile()
+        for item in _pre + _pre[0].get('app.config.items'):
+            config_switcher.items.append(item)
 
-        app.mount('Env', env)
+            item.check_file()
 
-    def checkFile(self):
-        self.path.mkdir(parents=True,exist_ok=True)
-        if self.file.exists() == False:
-            temp_stream = open(self.file, 'w', encoding='utf-8')
-            default_settings = dict()
+        _pre[0].values.values.update(app.app.conf_override)
 
-            json.dump(default_settings, temp_stream)
-            temp_stream.close()
-
-        self._stream = open(self.file, 'r+', encoding='utf-8')
-        try:
-            self.values.values = json.load(self._stream)
-        except json.JSONDecodeError as __exc:
-            self.log("failed to load config json")
-            #self.reset()
-
-    def updateFile(self) -> None:
-        self._stream.seek(0)
-
-        json.dump(self.values.values, self._stream, indent=4)
-
-        self._stream.truncate()
-
-    def reset(self) -> None:
-        '''
-        Clears all the settings
-        '''
-        self._stream.seek(0)
-        self._stream.write("{}")
-        self._stream.truncate()
-
-        self.values.values = {}
-
-    def get(self, option: str, default: str = None):
-        got = self.values.get(option)
-        if got == None:
-            return default
-
-        return got
-
-    def set(self, option: str, value: str):
-        if value == None:
-            del self.values.values[option]
+    def getItem(self, role: Literal['config', 'env'] = 'config'):
+        if role == 'config':
+            return self.items[self.common]
+        elif role == 'env':
+            return self.items[self.common_env]
         else:
-            self.values.values[option] = value
+            return None
 
-        self.updateFile()
-
-    '''
-    def updateCompare(self):
-        self.comparer.compare = DictList(items = self.getSettingsOfEveryObject())
-    '''
-
-    def __del__(self):
-        try:
-            self._stream.close()
-        except AttributeError:
-            pass
+    @classmethod
+    def getSettings(cls):
+        return [
+            ListArgument(
+                name = 'app.config.items',
+                default = [],
+                orig = ConfigItem
+            )
+        ]

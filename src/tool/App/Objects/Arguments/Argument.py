@@ -27,7 +27,7 @@ class Argument(Object):
     is_sensitive: bool = Field(default = False)
     auto_apply: bool = Field(default = False)
     assertions: List[Assertion] = Field(default=[])
-    role: Literal['config', 'env'] = Field(default=[])
+    role: Literal['config', 'env'] = Field(default='config')
     documentation: Documentation = Field(default = None)
 
     current: Any = Field(default=None)
