@@ -36,9 +36,10 @@ class App(Object):
         #self.cwd = Path(os.getcwd())
         self.cwd = Path(__file__).parent.parent # objects dir
         self.src = self.cwd.parent # "tool", "storage", "venv" and update scripts
-        self.acl = self.src.joinpath('acl')
         self.storage = self.src.joinpath('storage') # default storage
         self.storage.mkdir(exist_ok = True)
+        self.acl = self.storage.joinpath('acl')
+        # self.acl.mkdir(exist_ok = True)
         self.loop = asyncio.new_event_loop()
         asyncio.set_event_loop(self.loop)
 

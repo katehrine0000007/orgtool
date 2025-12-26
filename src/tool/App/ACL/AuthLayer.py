@@ -1,6 +1,9 @@
 from App.Objects.Object import Object
+from App.Objects.Arguments.ListArgument import ListArgument
+from App.Objects.Arguments.Argument import Argument
 from pydantic import Field
 from App.ACL.User import User
+from App.ACL.GetHash import GetHash
 from App import app
 
 class AuthLayer(Object):
@@ -18,21 +21,46 @@ class AuthLayer(Object):
         user = self.getUserByName(name)
 
         assert user != None, 'user not found'
-        assert user.auth(password), 'invalid username or password'
+        _usr = user.auth(password)
+        assert _usr, 'invalid username or password'
 
         self.log(f"logged as {name}")
 
+        return _usr
+
     @classmethod
     def mount(cls):
-        _layer = cls()
-        _users = [
-            User(
-                name = 'root',
-                password_hash = '123'
-            )
-        ]
+        default_root_password = 'root'
 
-        for user in _users:
+        _layer = cls()
+        has_root = False
+        for user in _layer.getOption('app.auth.users'):
+            if user.name == 'root':
+                has_root = True
+
             _layer.addUser(user)
 
+        if has_root == False:
+            _layer.addUser(User(
+                    name = 'root',
+                    # 2manywraps
+                    password_hash = GetHash().implementation({'string': default_root_password}).data
+                )
+            )
+
         app.mount('AuthLayer', _layer)
+
+    @classmethod
+    def getSettings(cls):
+        return [
+            ListArgument(
+                name = 'app.auth.users',
+                default = [
+                    {
+                        'name': 'root',
+                        'password_hash': '123'
+                    }
+                ],
+                orig = User
+            )
+        ]

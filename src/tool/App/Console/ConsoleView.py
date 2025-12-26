@@ -21,6 +21,12 @@ class ConsoleView(View):
         return await self.execute(_parsed_argv[0])
 
     async def implementation(self, i: ArgumentValues = {}):
+        _user = app.AuthLayer.login(
+            name = i.get('username'),
+            password = i.get('password')
+        )
+        i.set('auth', _user)
+
         pre_i = i.get('pre_i')()
         results = await pre_i.execute(i)
 
@@ -58,7 +64,17 @@ class ConsoleView(View):
                 name = 'console_view.print_as',
                 orig = String,
                 default = 'str'
-            )
+            ),
+            Argument(
+                name = 'username',
+                orig = String,
+                default = 'root'
+            ),
+            Argument(
+                name = 'password',
+                orig = String,
+                default = 'root'
+            ),
         ],
             missing_args_inclusion = True
         )

@@ -26,7 +26,7 @@ class DefaultExecutorWheel(Act):
 
         assert executable != None, 'not found object'
         assert app.app.view.canUseObject(executable), 'object cannot be used at this view'
-        assert executable.canBeUsedBy(None), 'access denied'
+        assert executable.canBeUsedBy(i.get('auth')), 'access denied'
 
         results = None
         if force_flush == False:

@@ -1,4 +1,7 @@
 from App.Objects.Object import Object
 
 class AuthToken(Object):
-    pass
+    user: Object
+
+    def check_rights(self, obj: Object):
+        return True

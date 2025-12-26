@@ -20,6 +20,9 @@ class ArgumentValues(Object):
     default_on_assertion: bool = Field(default=True)
     none_values_skipping: bool = Field(default=True)
 
+    def set(self, key: str, val: Any) -> None:
+        self.values[key] = val
+
     def toDict(self) -> dict:
         if self.compare == None:
             return self.values
