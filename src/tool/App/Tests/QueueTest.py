@@ -35,7 +35,7 @@ class QueueTest(Test):
             'output': '''
             [{
                 "key": "#0",
-                "response": "App.Responses.AnyResponse"
+                "response": "App.Objects.Responses.AnyResponse"
             }]
             '''
         }

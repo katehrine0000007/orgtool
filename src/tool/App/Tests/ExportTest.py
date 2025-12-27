@@ -1,7 +1,7 @@
 from App.Objects.Test import Test
 from App import app
 from App.Storage.Movement.Export import Export
-from App.Responses.ObjectsList import ObjectsList
+from App.Objects.Responses.ObjectsList import ObjectsList
 from App.Storage.StorageItem import StorageItem
 from Data.Text import Text
 

@@ -133,4 +133,6 @@ Calling it:
 
 Calling `App.Storage.DB.Search` will show that it was checked. Wow.
 
-But it's boring that we can set only str as `label`. We can change it to the `LinkInsertion`
+Changing `label` in `Checkmark` to `LinkInsertion`. Now you can't create Checkmark by old way, so adding shortcut act:
+
+

@@ -1,5 +1,5 @@
 from App.Console.ConsoleView import ConsoleView
-from App.Responses.NoneResponse import NoneResponse
+from App.Objects.Responses.NoneResponse import NoneResponse
 from App.Objects.Arguments.ArgumentValues import ArgumentValues
 from App import app
 import traceback

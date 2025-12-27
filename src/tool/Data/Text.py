@@ -1,5 +1,5 @@
 from App.Objects.Object import Object
-from App.Objects.Misc.LinkInsertion import LinkInsertion
+from App.Objects.Relations.LinkInsertion import LinkInsertion
 from pydantic import Field
 
 class Text(Object):

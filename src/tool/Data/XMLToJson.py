@@ -1,5 +1,5 @@
 from App.Objects.Convertation import Convertation
-from App.Responses.ObjectsList import ObjectsList
+from App.Objects.Responses.ObjectsList import ObjectsList
 from App.Objects.Relations.Submodule import Submodule
 from App.Objects.Requirements.Requirement import Requirement
 from Data.JSON import JSON

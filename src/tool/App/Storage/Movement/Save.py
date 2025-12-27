@@ -4,8 +4,8 @@ from App.Objects.Arguments.Argument import Argument
 from App.Objects.Arguments.ListArgument import ListArgument
 from Data.Int import Int
 from App.Objects.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
-from App.Responses.ObjectsList import ObjectsList
-from App.Responses.AnyResponse import AnyResponse
+from App.Objects.Responses.ObjectsList import ObjectsList
+from App.Objects.Responses.AnyResponse import AnyResponse
 from App.Storage.StorageItem import StorageItem
 from App.Storage.StorageUUID import StorageUUID
 from App import app

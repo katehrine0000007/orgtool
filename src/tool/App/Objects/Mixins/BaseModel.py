@@ -1,5 +1,5 @@
 from pydantic import BaseModel as PydanticBaseModel, computed_field, model_serializer, field_validator
-from App.Objects.Misc.LinkInsertion import LinkInsertion
+from App.Objects.Relations.LinkInsertion import LinkInsertion
 from typing import Literal, ClassVar, Any
 from datetime import datetime
 

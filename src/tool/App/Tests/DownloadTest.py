@@ -1,5 +1,5 @@
 from App.Objects.Test import Test
-from App.Responses.ObjectsList import ObjectsList
+from App.Objects.Responses.ObjectsList import ObjectsList
 from App import app
 
 class DownloadTest(Test):

@@ -1,5 +1,5 @@
 from App.Objects.Arguments.ArgumentValues import ArgumentValues
-from App.Responses.Response import Response
+from App.Objects.Responses.Response import Response
 from App.Objects.Executable import Executable
 from App.Objects.Relations.Submodule import Submodule
 from App.Objects.Arguments.ArgumentDict import ArgumentDict

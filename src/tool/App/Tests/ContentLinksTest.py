@@ -4,7 +4,7 @@ from App.Storage.StorageUnit import StorageUnit
 from App.Storage.StorageItem import StorageItem
 from Data.JSON import JSON
 from App import app
-from App.Responses.ObjectsList import ObjectsList
+from App.Objects.Responses.ObjectsList import ObjectsList
 
 class ContentLinksTest(Test):
     async def implementation(self, i):

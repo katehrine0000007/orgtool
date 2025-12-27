@@ -3,7 +3,7 @@ from App.Objects.Arguments.ArgumentValues import ArgumentValues
 from App.Objects.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
 from App.Objects.Arguments.Argument import Argument
 from App.Objects.Executable import Executable
-from App.Responses.ObjectsList import ObjectsList
+from App.Objects.Responses.ObjectsList import ObjectsList
 from Data.JSON import JSON
 from Data.Boolean import Boolean
 from Data.String import String

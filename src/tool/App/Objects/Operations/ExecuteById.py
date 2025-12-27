@@ -6,7 +6,7 @@ from Data.Boolean import Boolean
 from App.Storage.StorageItem import StorageItem
 from App.Storage.StorageUUID import StorageUUID
 from App.Objects.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
-from App.Responses.ObjectsList import ObjectsList
+from App.Objects.Responses.ObjectsList import ObjectsList
 
 class ExecuteById(Act):
     @classmethod

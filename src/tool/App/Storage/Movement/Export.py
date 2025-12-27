@@ -7,8 +7,8 @@ from Data.String import String
 from Data.Int import Int
 from Data.Boolean import Boolean
 from App.Objects.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
-from App.Responses.ObjectsList import ObjectsList
-from App.Responses.AnyResponse import AnyResponse
+from App.Objects.Responses.ObjectsList import ObjectsList
+from App.Objects.Responses.AnyResponse import AnyResponse
 
 class Export(Act):
     '''

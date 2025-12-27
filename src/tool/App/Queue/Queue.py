@@ -1,5 +1,5 @@
 from App.Objects.Object import Object
-from App.Responses.Responses import Responses
+from App.Objects.Responses.Responses import Responses
 
 class Queue(Object):
     '''

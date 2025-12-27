@@ -1,6 +1,6 @@
 from App.Objects.Mixins.BaseModel import BaseModel, computed_field
 from App.Storage.DB.DBInsertable import DBInsertable
-from App.Objects.Misc.LinkInsertion import LinkInsertion
+from App.Objects.Relations.LinkInsertion import LinkInsertion
 from pydantic import Field
 from typing import Any, Literal
 from enum import Enum

@@ -5,7 +5,7 @@ from Data.String import String
 from Data.Boolean import Boolean
 from App.Objects.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
 from App.Storage.StorageItem import StorageItem
-from App.Responses.AnyResponse import AnyResponse
+from App.Objects.Responses.AnyResponse import AnyResponse
 from App import app
 from pathlib import Path
 

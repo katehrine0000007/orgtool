@@ -3,7 +3,7 @@ from App.Objects.Arguments.ArgumentDict import ArgumentDict
 from App.Objects.Arguments.Argument import Argument
 from Data.String import String
 from App.Objects.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
-from App.Responses.AnyResponse import AnyResponse
+from App.Objects.Responses.AnyResponse import AnyResponse
 from pathlib import Path
 
 from Files.File import File

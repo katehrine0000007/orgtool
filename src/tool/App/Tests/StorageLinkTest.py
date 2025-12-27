@@ -1,6 +1,6 @@
 from App.Objects.Test import Test
 from Files.FileTypes.Image import Image
-from App.Responses.ObjectsList import ObjectsList
+from App.Objects.Responses.ObjectsList import ObjectsList
 from App.Storage.StorageUnitLink import StorageUnitLink
 from App import app
 from Data.JSON import JSON

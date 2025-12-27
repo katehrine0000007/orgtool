@@ -1,5 +1,5 @@
 from App.Objects.Object import Object
-from App.Responses.ObjectsList import ObjectsList
+from App.Objects.Responses.ObjectsList import ObjectsList
 from typing import ClassVar
 from pydantic import Field
 from App import app

@@ -1,7 +1,7 @@
 from .Object import Object
 from .Mixins.Validable import Validable
 from App.Objects.Arguments.ArgumentValues import ArgumentValues
-from App.Responses.Response import Response
+from App.Objects.Responses.Response import Response
 from App.Objects.Mixins.Variableable import Variableable
 from App.Logger.LogPrefix import LogPrefix
 from typing import ClassVar, Optional

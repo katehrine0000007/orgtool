@@ -1,10 +1,12 @@
 from App.Objects.Object import Object
 from App.Objects.Displayment import Displayment
+from App.Objects.Relations.LinkInsertion import LinkInsertion
+from Data.String import String
 from pydantic import Field
 
 class Checkmark(Object):
     state: bool = Field(default = False)
-    label: str = Field(default = None)
+    label: String | LinkInsertion = Field(default = None)
 
     @classmethod
     def getDisplayments(cls):

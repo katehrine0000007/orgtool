@@ -1,5 +1,5 @@
 from App.Objects.Act import Act
-from App.Responses.AnyResponse import AnyResponse
+from App.Objects.Responses.AnyResponse import AnyResponse
 import tracemalloc
 
 class Tracemalloc(Act):

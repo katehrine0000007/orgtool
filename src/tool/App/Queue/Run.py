@@ -5,7 +5,7 @@ from App.Objects.Arguments.ListArgument import ListArgument
 from .Item import Item
 from .OutputItem import OutputItem
 from .Queue import Queue
-from App.Responses.Response import Response
+from App.Objects.Responses.Response import Response
 
 class Run(Act):
     '''

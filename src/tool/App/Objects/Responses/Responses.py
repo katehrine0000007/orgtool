@@ -1,4 +1,4 @@
-from App.Responses.Response import Response
+from App.Objects.Responses.Response import Response
 from pydantic import Field
 
 class Responses(Response):

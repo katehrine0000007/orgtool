@@ -1,5 +1,5 @@
 from App.Objects.Executable import Executable
-from App.Responses.ObjectsList import ObjectsList
+from App.Objects.Responses.ObjectsList import ObjectsList
 from App.Objects.Object import Object
 from App.Objects.Arguments.ListArgument import ListArgument
 
