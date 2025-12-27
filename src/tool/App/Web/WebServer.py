@@ -8,7 +8,10 @@ from Data.Boolean import Boolean
 from Data.JSON import JSON
 from aiohttp import web
 from App import app
-import asyncio, traceback
+from pathlib import Path
+from App.Storage.DB.Adapters.Search.Condition import Condition
+from App.Storage.StorageUnit import StorageUnit
+import asyncio, traceback, os
 
 class WebServer(View):
     async def implementation(self, i):
@@ -26,10 +29,48 @@ class WebServer(View):
             )
 
         def _get_asset(request):
-            pass
+            asset_path  = request.match_info.get('path', '')
+            static_dir = Path(os.path.dirname(__file__)).joinpath("assets")
+            static_file = static_dir.joinpath(asset_path)
+            if static_file.exists() == True and static_file.is_file() == True:
+                return web.FileResponse(static_file)
+
+            return web.HTTPNotFound(text="not found asset")
 
         def _get_storage_unit(request):
-            pass
+            uuid = int(request.match_info.get('uuid', ''))
+            _storage = request.match_info.get('storage', '')
+            path = request.match_info.get('path', '')
+
+            storage = app.Storage.get(_storage)
+
+            _query = storage.adapter.getQuery()
+            _query.addCondition(Condition(
+                val1 = 'uuid',
+                operator = '==',
+                val2 = uuid
+            ))
+
+            storage_unit = _query.first()
+            if storage_unit == None:
+                return web.HTTPNotFound(text="Not found storage_unit")
+
+            storage_unit = storage_unit.toPython()
+            if storage_unit.isInstance(StorageUnit) == False:
+                return web.HTTPNotFound(text="Item is not a storage unit")
+
+            storage_path = storage_unit.getDir()
+            file = storage_path / path
+
+            try:
+                file.resolve().relative_to(storage_path.resolve())
+            except (ValueError, RuntimeError):
+                raise web.HTTPForbidden(reason="Access denied")
+
+            if not file.is_file():
+                raise web.HTTPNotFound(text="Not found file")
+
+            return web.FileResponse(str(file))
 
         async def _call_shortcut(pre_i, args):
             _json = JSON(data = {})
@@ -97,17 +138,38 @@ class WebServer(View):
 
             return ws
 
-        def _upload_storage_unit(request):
-            pass
+        async def _upload_storage_unit(request):
+            _storage = request.match_info.get('storage', '')
+            storage = app.Storage.get(_storage)
+            if storage == None:
+                raise web.HTTPNotAcceptable(text="not found storage")
 
-        # scary
+            data = await request.post()
+            file = data.get('file')
+            if file == None:
+                raise web.HTTPNotAcceptable(text="not passed file")
+
+            storage_unit = storage.getStorageUnit()
+            filename = storage_unit.hash + '.oct'
+            file_path = storage_unit.getDir().joinpath(filename)
+
+            with open(file_path, 'wb') as f:
+                f.write(file.file.read())
+
+            storage_unit.save()
+
+            return web.Response(
+                text = JSON(data = storage_unit.to_json()).dump(),
+                content_type = 'application/json'
+            )
+
         for route in [
             ('/', _spa, 'get'),
-            ('/static/{path:.*}', _get_asset, 'get'),
-            ('/storage/{id:.*}/{path:.*}', _get_storage_unit, 'get'),
+            # ('/static/{path:.*}', _get_asset, 'get'),
+            ('/storage/{storage}/{uuid}/{path:.*}', _get_storage_unit, 'get'),
             ('/api', _single_call, 'get'),
             ('/rpc', _ws, 'get'),
-            ('/api/upload', _upload_storage_unit, 'get'),
+            ('/api/upload/{storage}', _upload_storage_unit, 'post'),
         ]:
             getattr(_app.router, 'add_' + route[2])(route[0], route[1])#(route[0], getattr(self, route[1]))
 

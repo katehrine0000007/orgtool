@@ -74,7 +74,7 @@ class ConfigItem(Object):
         try:
             self.values.values = json.load(self._stream)
         except json.JSONDecodeError as __exc:
-            self.log("failed to load config json")
+            self.log_error("failed to load config json")
             #self.reset()
 
     def append_settings_of_module(self, module) -> None:

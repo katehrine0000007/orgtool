@@ -87,3 +87,8 @@ class StorageUnit(Object):
             name = self.getCommonPath().name,
             ext = self.getCommonPath().suffix[1:]
         )
+
+    def save(self):
+        self.files = self.genFilesList()
+
+        super().save()
