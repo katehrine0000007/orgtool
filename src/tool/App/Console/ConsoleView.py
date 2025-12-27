@@ -1,6 +1,5 @@
 from App.Objects.Arguments.ArgumentDict import ArgumentDict
 from App.Objects.Arguments.ArgumentValues import ArgumentValues
-from App.Objects.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
 from App.Objects.Arguments.Argument import Argument
 from App.Objects.Executable import Executable
 from App.Objects.Responses.ObjectsList import ObjectsList
@@ -49,14 +48,6 @@ class ConsoleView(View):
     @classmethod
     def getArguments(cls) -> ArgumentDict:
         return ArgumentDict(items = [
-            Argument(
-                name = 'pre_i',
-                orig = Executable,
-                default = 'App.Objects.Operations.DefaultExecutorWheel',
-                assertions = [
-                    NotNoneAssertion()
-                ]
-            ),
             Argument(
                 name = 'console_view.print_result',
                 orig = Boolean,

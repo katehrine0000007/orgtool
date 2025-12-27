@@ -18,6 +18,7 @@ class Item(Object):
     started_at: datetime.datetime = Field(default = None)
     response_iter: int = Field(default = 1024)
     save_to_file: bool = Field(default = True)
+    _unserializable = ['task', 'run_flag']
 
     def _constructor(self):
         self.run_flag = asyncio.Event()

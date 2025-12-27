@@ -1,6 +1,9 @@
 from App.Objects.Executable import Executable
 from typing import Any
 from App.App import App
+from App.Objects.Arguments.ArgumentDict import ArgumentDict
+from App.Objects.Arguments.Argument import Argument
+from App.Objects.Arguments.Assertions.NotNoneAssertion import NotNoneAssertion
 
 class View(Executable):
     '''
@@ -35,3 +38,16 @@ class View(Executable):
         for item in _allowed:
             if item.getClassNameJoined() == self.getClassNameJoined():
                 return True
+
+    @classmethod
+    def getArguments(cls) -> ArgumentDict:
+        return ArgumentDict(items = [
+            Argument(
+                name = 'pre_i',
+                orig = Executable,
+                default = 'App.Objects.Operations.DefaultExecutorWheel',
+                assertions = [
+                    NotNoneAssertion()
+                ]
+            ),
+        ])

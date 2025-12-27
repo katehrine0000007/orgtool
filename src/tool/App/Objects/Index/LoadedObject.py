@@ -41,6 +41,7 @@ class LoadedObject(Object):
     def getModule(self):
         if self._module == None:
             self.setModule(self.loadModule(ignore_requires = True))
+            self.integrateModule(self._module)
 
         return self._module
 
